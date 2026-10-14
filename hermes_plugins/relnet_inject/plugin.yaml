@@ -1,0 +1,3 @@
+name: relnet_inject
+version: "0.3"
+description: "Relationship-net role injection (v1b): per-wf nonce marker gated setting/script/tone injection + tool allowlist at the llm_request layer; fail-open"
