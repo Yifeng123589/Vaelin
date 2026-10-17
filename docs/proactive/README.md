@@ -1,15 +1,15 @@
-# Vaelin · Proactive Companion · Docs Pack（脱敏 · 本地 staging）
+# Vaelin · Proactive Companion · Docs Pack（脱敏）
 
-> **状态**：本地组装完成 · **未 push** · 非无护栏产品说明  
+> **状态**：已随 [PR#3](https://github.com/Yifeng123589/Vaelin/pull/3) 合入 `main`（merge `0b09e1e` · 2026-10-15 Asia/Shanghai）· 非无护栏产品说明  
 > **组装日**：2026-10-15（Asia/Shanghai）  
-> **目标**：日后可迁入公开仓 Vaelin 的 `docs/proactive/`；本包仅本地 staging。
+> **路径**：公开仓 `docs/proactive/`
 
 ## 对外四句
 
 1. Vaelin（留白）是研究原型：主动式陪伴＋本地护栏，不是医疗产品。  
 2. 本目录是**设计叙事与观察结论的脱敏文档包**，不含生产护栏源码、词表全文或真实对话。  
 3. 主动弧线装配源码已在公开／可公开面点名：`lead_proactive`（见仓内 `net/lead_proactive.py`＋单测）；本包**不重复拷贝**该源码。  
-4. **本包未 push**；挂仓／Publish 须另拍。
+4. **本包已随 PR#3 合入 `main`**；后续增量另开 PR。
 
 ## 白名单（本包内）
 
