@@ -1,7 +1,8 @@
 # 脱敏扫描记录 · 2026-10-15
 
-> staging 根：`_vaelin_stage/docs/proactive/`  
-> 时区：Asia/Shanghai
+> staging 根：`docs/proactive/`（公开仓路径）  
+> 时区：Asia/Shanghai  
+> **状态句更新**：2026-10-17 — 本 SCAN 为历史脱敏快照；包已随 PR#3 合入 `main`（`0b09e1e`）
 
 | # | 检查 | 结果 | 备注 |
 |---|---|---|---|
@@ -13,6 +14,6 @@
 | S6 | vault／SEALED | PASS | 未纳入 |
 | S7 | v0.4 zip／G2 全文／q10 replay | PASS | 未纳入 |
 | S8 | 白名单 W1–W5＋W6 点名 | PASS | 见文件列表；lead_proactive 仅 README 点名 |
-| S9 | 包级声明 | PASS | README 含脱敏／未 push／非无护栏产品 |
+| S9 | 包级声明 | PASS | README 含脱敏／已合入 main（PR#3）／非无护栏产品 |
 
-**总评**：PASS（可审查本地 staging；**未 push**）
+**总评**：PASS（历史扫描快照＋状态句已更新；包已随 PR#3 合入 `main`）

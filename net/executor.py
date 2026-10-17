@@ -10,7 +10,7 @@
   step≥2 进入时先补 dispatch 行（from=组长节点名，L5）
   → 写角色状态（step 感知 + 一次性口令 marker；复用 lead_proactive 单实现）
   → backend(step, briefing, state) -> str（沙箱=hermes chat 子进程；单测=stub）
-  → 产物落盘 artifact_dir/<wf>_step{N}.md（**非空校验**；空产出=失败）
+  → 产物落盘：主链 artifact_dir/<wf>_step{N}.md；有 chain 时 <wf>__c_<safe>_step{N}.md（**非空校验**；空产出=失败）
   → action 行（by=step.to，did="artifact:<文件>"，duration_s=backend 耗时）
   → 全部完成：状态置 inactive（防陈旧泄漏）
 失败：**不落 action**（防"失败也算清账"）；置 inactive；中止返回 {"ok": False,...}
@@ -45,6 +45,16 @@ _PRODUCING_ARTIFACT_OK = re.compile(r"\S")   # 产物非空校验
 
 def _now_iso() -> str:
     return datetime.now().astimezone().isoformat(timespec="seconds")
+
+
+
+def _artifact_name(wf: str, step: int, chain: str | None = None) -> str:
+    """产物文件名：主链（chain 空）保持旧名 <wf>_step{N}.md；
+    非空 chain → <wf>__c_<safe>_step{N}.md（safe=仅 [A-Za-z0-9._-]，其余→_ ，长度封顶 64）。"""
+    if not chain:
+        return "%s_step%d.md" % (wf, step)
+    safe = re.sub(r"[^A-Za-z0-9._-]", "_", str(chain))[:64] or "_"
+    return "%s__c_%s_step%d.md" % (wf, safe, step)
 
 
 def _nonce() -> str:
@@ -117,7 +127,7 @@ def run_slip(slip: dict, backend, *, vault: Path, log_path: Path,
         if not isinstance(out, str) or not _PRODUCING_ARTIFACT_OK.search(out):
             return _abort(sp, wf, n, "backend 空产出（失败不落 action）")
 
-        artifact = artifact_dir / ("%s_step%d.md" % (wf, n))
+        artifact = artifact_dir / _artifact_name(wf, n, chain)
         artifact.write_text(out if out.endswith("\n") else out + "\n", encoding="utf-8")
         artifacts.append(str(artifact))
         prev_text = out

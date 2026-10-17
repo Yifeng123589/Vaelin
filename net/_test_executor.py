@@ -8,6 +8,7 @@
   4. 角色状态：逐步落盘（step/role/marker 随步走、口令互不相同且进了 briefing）；完成置 inactive
   5. 失败路径：backend 空产出 → 不落该步 action、状态置 aborted、无产物
   6. 坏 slip：缺 wf/steps → ValueError
+  7. TC-S1 产物分片：主链旧名；两 chain 同 wf+step 并存；非法 chain safe 化；did=实路径
 """
 import json
 import os
@@ -138,6 +139,57 @@ def main() -> int:
     check("executor 真写的 action → streak 清零", wl.current_streak(fin3, "wf_exec_t") == 0)
     check("清零行确为 executor 落账（did=artifact:）",
           [x for x in fin3 if x["type"] == "action"][-1]["did"].startswith("artifact:"))
+
+
+    # ── TC-S1 产物分片（chain 路径隔离；主链旧名兼容）──
+    check("TC-S1 命名·主链旧名",
+          ex._artifact_name("wf_x", 1) == "wf_x_step1.md"
+          and ex._artifact_name("wf_x", 1, None) == "wf_x_step1.md"
+          and ex._artifact_name("wf_x", 1, "") == "wf_x_step1.md")
+    check("TC-S1 命名·分片含 chain",
+          ex._artifact_name("wf_x", 1, "a") == "wf_x__c_a_step1.md"
+          and ex._artifact_name("wf_x", 1, "b") == "wf_x__c_b_step1.md"
+          and ex._artifact_name("wf_x", 1, "a") != ex._artifact_name("wf_x", 1, "b"))
+    check("TC-S1 命名·非法字符 safe 化不抛",
+          ex._artifact_name("wf_x", 2, "a/b:c*|?") == "wf_x__c_a_b_c____step2.md")
+
+    ART_CHAIN = TMP / "art_chain"
+    LOG_CA = TMP / "wf_log_chain_a.jsonl"
+    LOG_CB = TMP / "wf_log_chain_b.jsonl"
+    STATE_CA = TMP / "state_chain_a.json"
+    STATE_CB = TMP / "state_chain_b.json"
+    slip_base = {"wf": "wf_chain_t",
+                 "steps": [{"step": 1, "to": "陪伴者", "work": "写一句", "require": None}],
+                 "fallback": {"to": "main"}}
+
+    def stub_a(step, briefing, state):
+        return "内容A·chain_a"
+
+    def stub_b(step, briefing, state):
+        return "内容B·chain_b"
+
+    ra = ex.run_slip({**slip_base, "chain": "alpha"}, stub_a, vault=VAULT,
+                     log_path=LOG_CA, state_path=STATE_CA, artifact_dir=ART_CHAIN)
+    rb = ex.run_slip({**slip_base, "chain": "beta"}, stub_b, vault=VAULT,
+                     log_path=LOG_CB, state_path=STATE_CB, artifact_dir=ART_CHAIN)
+    path_a = ART_CHAIN / "wf_chain_t__c_alpha_step1.md"
+    path_b = ART_CHAIN / "wf_chain_t__c_beta_step1.md"
+    check("TC-S1 两 chain 同 wf+step → 两文件并存",
+          ra.get("ok") and rb.get("ok") and path_a.exists() and path_b.exists(),
+          str(list(ART_CHAIN.glob("*"))))
+    check("TC-S1 并存内容互不覆盖",
+          "内容A" in path_a.read_text(encoding="utf-8")
+          and "内容B" in path_b.read_text(encoding="utf-8")
+          and "内容A" not in path_b.read_text(encoding="utf-8"))
+    recs_a = wl.read_records(LOG_CA)
+    did_a = [x["did"] for x in recs_a if x["type"] == "action"][-1]
+    check("TC-S1 did 指向实文件",
+          did_a == ("artifact:%s" % path_a) and path_a.exists(), did_a)
+
+    # 主链回归：缺省 chain 仍写旧名（与既有 arts 路径一致）
+    check("TC-S1 主链回归·旧名产物仍在",
+          (ARTDIR / "wf_exec_t_step1.md").exists()
+          and (ARTDIR / "wf_exec_t_step2.md").exists())
 
     print("\n结果：%d pass / %d fail" % (PASS, FAIL))
     return 0 if FAIL == 0 else 1
