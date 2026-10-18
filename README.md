@@ -15,6 +15,14 @@ Working-layer relationship-net control plane: turn “split the task, hand it of
 
 Python 3.10+. From the repository root (PowerShell, or any shell with `python` on `PATH`):
 
+One-shot (layout check + both Path A tests):
+
+```powershell
+python scripts/bootstrap.py
+```
+
+Or run the two tests directly (equivalent):
+
 ```powershell
 python net/_test_workflow_log.py
 python net/_test_handoff.py

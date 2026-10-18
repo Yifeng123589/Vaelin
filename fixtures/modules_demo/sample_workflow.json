@@ -1,0 +1,44 @@
+{
+  "id": "modules_demo_sample_v0",
+  "title": "Synthetic cross-domain handoff (demo only)",
+  "synthetic": true,
+  "note": "Fake trajectory across example functional domains. No real session, no secrets, no production vault paths.",
+  "example_domains_note": "Example set, not a closed enum — domains may be added/removed/renamed.",
+  "steps": [
+    {
+      "seq": 1,
+      "domain_id": "M1",
+      "role": "M1_data_analytics",
+      "action": "ingest_signals",
+      "summary": "Collect synthetic input notes and list open questions."
+    },
+    {
+      "seq": 2,
+      "domain_id": "M2",
+      "role": "M2_planning",
+      "action": "draft_options",
+      "summary": "Turn M1 notes into two plan options with acceptance criteria."
+    },
+    {
+      "seq": 3,
+      "domain_id": "M3",
+      "role": "M3_engineering",
+      "action": "implement_and_test",
+      "summary": "Implement the chosen option in a sandbox and record Path A-style checks."
+    },
+    {
+      "seq": 4,
+      "domain_id": "M4",
+      "role": "M4_outreach",
+      "action": "prepare_public_note",
+      "summary": "Draft a redacted public demo note (no real chats or keys)."
+    },
+    {
+      "seq": 5,
+      "domain_id": "M5",
+      "role": "M5_feedback",
+      "action": "collect_and_route_back",
+      "summary": "Gather synthetic review feedback and hand rework back to M1/M3 as needed."
+    }
+  ]
+}
