@@ -40,6 +40,10 @@ What those scripts cover is listed in [`docs/demo.md`](docs/demo.md). Path B (li
 | `net/_test_*.py` | Unit tests (Path A) |
 | `hermes_plugins/relnet_*` | Plugin shells (inject / ledger / handoff); require a compatible Hermes host; **install ≠ enable** |
 | `fixtures/vault_seed/` | Synthetic / redacted role skeletons only |
+| `fixtures/modules_demo/` | Functional-domain module examples (PR#6) |
+| `scripts/bootstrap.py` | Path A one-shot layout check + unit tests (PR#6) |
+| `demos/ui/` | Local Web UI demo shell (**S9**; fixture-only; **demo ≠ production**) |
+| `docs/proactive/` | Proactive companion design narrative (redacted; already on main) |
 | `docs/` | Design and engineering excerpts, demo, q10 summary |
 | [`PUBLIC.md`](PUBLIC.md) / [`SECURITY.md`](SECURITY.md) / [`LICENSE`](LICENSE) | Boundary · security · MIT |
 
