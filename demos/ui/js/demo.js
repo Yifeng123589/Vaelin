@@ -1,4 +1,4 @@
-/* Vaelin UI demo shell S8 — fake data only · zero Hermes · scene preview / timer / talk print / a11y */
+/* Vaelin UI demo shell S9 — fake data only · zero Hermes · dual / filmstrip / checklist / caption·REC */
 (function () {
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -123,6 +123,8 @@
   function clearPrefs() {
     try {
       localStorage.removeItem(LS_KEY);
+      localStorage.removeItem(LS_KEY_S9);
+      localStorage.removeItem(LS_KEY_S9_CHECK);
     } catch (e) {}
     showToast("已清除本壳偏好", true);
   }
@@ -133,6 +135,7 @@
       btn.textContent = cleanOn ? "干净模式（开）· 点此还原" : "开启干净模式";
     });
     document.body.classList.toggle("clean-mode", cleanOn);
+    if (typeof syncRec === "function") syncRec();
   }
 
   function applyCleanMode(on, opts) {
@@ -1392,6 +1395,293 @@
     setTimeout(() => window.print(), 120);
   }
 
+
+  /* ---- S9 dual / filmstrip / checklist / caption / REC ---- */
+  const LS_KEY_S9 = "vaelin.uiDemo.s9.prefs";
+  const LS_KEY_S9_CHECK = "vaelin.uiDemo.s9.checklist";
+  let dualOn = false;
+  let captionOn = true;
+  let recOn = false;
+  let checklistOn = false;
+
+  function readS9Prefs() {
+    if (!persistEnabled) return {};
+    try {
+      const raw = localStorage.getItem(LS_KEY_S9);
+      if (!raw) return {};
+      const o = JSON.parse(raw);
+      return o && typeof o === "object" ? o : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function writeS9Prefs() {
+    if (!persistEnabled) return;
+    try {
+      localStorage.setItem(
+        LS_KEY_S9,
+        JSON.stringify({
+          dual: dualOn,
+          caption: captionOn,
+          rec: recOn,
+        })
+      );
+    } catch (e) {}
+  }
+
+  function readChecklistState() {
+    try {
+      const raw = localStorage.getItem(LS_KEY_S9_CHECK);
+      if (!raw) return {};
+      const o = JSON.parse(raw);
+      return o && typeof o === "object" ? o : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function writeChecklistState(map) {
+    try {
+      localStorage.setItem(LS_KEY_S9_CHECK, JSON.stringify(map || {}));
+    } catch (e) {}
+  }
+
+  function syncDualUI() {
+    document.body.classList.toggle("dual-pane", dualOn);
+    const rail = $("#dual-rail");
+    if (rail) rail.hidden = !dualOn;
+    $$("#btn-dual, #btn-dual-settings").forEach((b) => {
+      b.setAttribute("aria-pressed", dualOn ? "true" : "false");
+    });
+    syncDualContent();
+  }
+
+  function syncDualContent() {
+    if (!DATA) return;
+    const noteEl = $("#dual-note");
+    const nextEl = $("#dual-next");
+    const timEl = $("#dual-timer-display");
+    if (timEl) timEl.textContent = formatTimer(timerSec);
+    const pn = (DATA.presenter_notes && DATA.presenter_notes.by_screen) || {};
+    const note = pn[currentScreen];
+    if (noteEl) {
+      if (!note) noteEl.textContent = "（本屏暂无讲者备注）";
+      else if (typeof note === "string") noteEl.textContent = note;
+      else {
+        const parts = [];
+        if (note.goal) parts.push(note.goal);
+        (note.points || []).slice(0, 3).forEach((p) => parts.push("· " + p));
+        if (note.warn) parts.push("⚠ " + note.warn);
+        noteEl.textContent = parts.join("\n");
+      }
+    }
+    if (nextEl) {
+      const meta = previewMeta(nextScreenId());
+      nextEl.textContent = meta.title + (meta.hint ? " — " + meta.hint : "");
+    }
+  }
+
+  function setDual(on, opts) {
+    opts = opts || {};
+    dualOn = !!on;
+    syncDualUI();
+    if (!opts.skipPersist) writeS9Prefs();
+    if (!opts.silent) showToast(dualOn ? "讲者双栏已开" : "讲者双栏已关", true);
+  }
+
+  function renderFilmstrip() {
+    const box = $("#filmstrip");
+    if (!box || !DATA) return;
+    const fs = DATA.filmstrip || {};
+    const items =
+      fs.items && fs.items.length
+        ? fs.items
+        : VALID_SCREENS.map((id, i) => ({
+            id: id,
+            n: i + 1,
+            label: previewMeta(id).title,
+            badge: String(i + 1),
+          }));
+    box.innerHTML = "";
+    box.setAttribute("aria-label", fs.title || "导览胶片条");
+    items.forEach((it) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "film-cell" + (it.id === currentScreen ? " on" : "");
+      b.dataset.screen = it.id;
+      b.innerHTML = '<span class="badge"></span><span class="flabel"></span>';
+      b.querySelector(".badge").textContent = it.badge || String(it.n || "");
+      b.querySelector(".flabel").textContent = it.label || it.id;
+      b.title = (it.n || "") + ". " + (it.label || "");
+      b.addEventListener("click", () => {
+        showScreen(it.id);
+        if (tourOn) {
+          const steps = tourSteps();
+          const idx = steps.findIndex((s) => s.screen === it.id);
+          if (idx >= 0) {
+            tourIdx = idx;
+            syncTourHighlight();
+          }
+        }
+      });
+      box.appendChild(b);
+    });
+  }
+
+  function syncFilmstrip() {
+    $$("#filmstrip .film-cell").forEach((el) => {
+      el.classList.toggle("on", el.dataset.screen === currentScreen);
+    });
+  }
+
+  function syncCaption() {
+    const bar = $("#caption-bar");
+    if (!bar || !DATA) return;
+    const map = DATA.caption_by_screen || {};
+    let text = map[currentScreen] || "";
+    if (text.length > 60) text = text.slice(0, 58) + "…";
+    bar.textContent = text;
+    const show = captionOn && !!text;
+    bar.hidden = !show;
+    const btn = $("#btn-caption-toggle");
+    if (btn) btn.setAttribute("aria-pressed", captionOn ? "true" : "false");
+  }
+
+  function setCaption(on, opts) {
+    opts = opts || {};
+    captionOn = !!on;
+    syncCaption();
+    if (!opts.skipPersist) writeS9Prefs();
+    if (!opts.silent) showToast(captionOn ? "字幕条已开" : "字幕条已关", true);
+  }
+
+  function syncRec() {
+    const badge = $("#rec-badge");
+    const cfg = (DATA && DATA.rec_overlay) || {};
+    if (badge) {
+      badge.textContent = cfg.badge || "REC · DEMO";
+      const hideForClean = cleanOn; // attachment I: hide REC in clean mode
+      badge.hidden = !recOn || hideForClean;
+    }
+    const btn = $("#btn-rec-toggle");
+    if (btn) btn.setAttribute("aria-pressed", recOn ? "true" : "false");
+  }
+
+  function setRec(on, opts) {
+    opts = opts || {};
+    recOn = !!on;
+    syncRec();
+    if (!opts.skipPersist) writeS9Prefs();
+    if (!opts.silent) showToast(recOn ? "REC 角标已开（假）" : "REC 角标已关", true);
+  }
+
+  function renderChecklist() {
+    const list = $("#checklist-list");
+    const title = $("#checklist-title");
+    const sub = $("#checklist-sub");
+    const cfg = (DATA && DATA.opening_checklist) || {};
+    if (title) title.textContent = cfg.title || "当面开场清单";
+    if (sub) sub.textContent = cfg.subtitle || "";
+    if (!list) return;
+    const state = readChecklistState();
+    list.innerHTML = "";
+    (cfg.items || []).forEach((it) => {
+      const li = document.createElement("li");
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.id = "chk-" + it.id;
+      cb.checked = !!state[it.id];
+      cb.addEventListener("change", () => {
+        const m = readChecklistState();
+        m[it.id] = cb.checked;
+        writeChecklistState(m);
+      });
+      const lab = document.createElement("label");
+      lab.htmlFor = cb.id;
+      lab.textContent = it.label || it.id;
+      li.appendChild(cb);
+      li.appendChild(lab);
+      list.appendChild(li);
+    });
+  }
+
+  function setChecklist(on) {
+    checklistOn = !!on;
+    const panel = $("#checklist-panel");
+    if (panel) {
+      panel.hidden = !checklistOn;
+      if (checklistOn) renderChecklist();
+    }
+  }
+
+  function resetChecklist() {
+    writeChecklistState({});
+    renderChecklist();
+    showToast("开场清单已本场重置", true);
+  }
+
+  function s9AfterScreen() {
+    syncDualContent();
+    syncFilmstrip();
+    syncCaption();
+    syncRec();
+  }
+
+  function s9AfterTimer() {
+    const timEl = $("#dual-timer-display");
+    if (timEl) timEl.textContent = formatTimer(timerSec);
+  }
+
+  function wireS9() {
+    const bd = $("#btn-dual");
+    const bds = $("#btn-dual-settings");
+    const dc = $("#dual-close");
+    if (bd) bd.addEventListener("click", () => setDual(!dualOn));
+    if (bds) bds.addEventListener("click", () => setDual(!dualOn));
+    if (dc) dc.addEventListener("click", () => setDual(false));
+    const bc = $("#btn-checklist");
+    const bcs = $("#btn-checklist-settings");
+    const cclose = $("#checklist-close");
+    const cres = $("#checklist-reset");
+    if (bc) bc.addEventListener("click", () => setChecklist(!checklistOn));
+    if (bcs)
+      bcs.addEventListener("click", () => {
+        setChecklist(true);
+        showScreen("screen-settings");
+      });
+    if (cclose) cclose.addEventListener("click", () => setChecklist(false));
+    if (cres) cres.addEventListener("click", () => resetChecklist());
+    const bcap = $("#btn-caption-toggle");
+    const brec = $("#btn-rec-toggle");
+    if (bcap) bcap.addEventListener("click", () => setCaption(!captionOn));
+    if (brec) brec.addEventListener("click", () => setRec(!recOn));
+  }
+
+  function bootS9() {
+    const p = readS9Prefs();
+    const dualDef =
+      DATA.dual_pane && typeof DATA.dual_pane.default_on === "boolean"
+        ? DATA.dual_pane.default_on
+        : false;
+    const capDef =
+      DATA.rec_overlay && typeof DATA.rec_overlay.caption_default_on === "boolean"
+        ? DATA.rec_overlay.caption_default_on
+        : true;
+    const recDef =
+      DATA.rec_overlay && typeof DATA.rec_overlay.default_on === "boolean"
+        ? DATA.rec_overlay.default_on
+        : false;
+    dualOn = typeof p.dual === "boolean" ? p.dual : dualDef;
+    captionOn = typeof p.caption === "boolean" ? p.caption : capDef;
+    recOn = typeof p.rec === "boolean" ? p.rec : recDef;
+    renderFilmstrip();
+    syncDualUI();
+    syncCaption();
+    syncRec();
+    wireS9();
+  }
+
   function wireNav() {
     $$("nav button[data-screen]").forEach((b) => {
       b.addEventListener("click", () => showScreen(b.dataset.screen));
@@ -1491,6 +1781,10 @@
           setHelp(false);
           return;
         }
+        if (checklistOn) {
+          setChecklist(false);
+          return;
+        }
         const tsp = $("#talk-script-panel");
         if (tsp && !tsp.hidden) {
           closeTalkScript();
@@ -1533,6 +1827,26 @@
       if (e.key === "n" || e.key === "N") {
         e.preventDefault();
         toggleScenePreview();
+        return;
+      }
+      if ((e.key === "d" || e.key === "D") && e.shiftKey) {
+        e.preventDefault();
+        setDual(!dualOn);
+        return;
+      }
+      if ((e.key === "c" || e.key === "C") && e.shiftKey) {
+        e.preventDefault();
+        setCaption(!captionOn);
+        return;
+      }
+      if (e.key === "c" || e.key === "C") {
+        e.preventDefault();
+        setChecklist(!checklistOn);
+        return;
+      }
+      if (e.key === "r" || e.key === "R") {
+        e.preventDefault();
+        setRec(!recOn);
         return;
       }
       if (e.key === "ArrowRight") {
