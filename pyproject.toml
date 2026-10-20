@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vaelin"
+version = "0.1.0"
+description = "Vaelin / 留白 — working-layer relationship-net control plane (dispatch, ledger, circuit-break, human-review)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Vaelin contributors" }]
+keywords = ["relnet", "vaelin", "workflow", "handoff"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Software Development :: Libraries",
+]
+# Zero mandatory cloud / API-key dependencies.
+dependencies = []
+
+[project.optional-dependencies]
+dev = []
+
+[project.urls]
+Homepage = "https://github.com/Yifeng123589/Vaelin"
+Repository = "https://github.com/Yifeng123589/Vaelin"
+Issues = "https://github.com/Yifeng123589/Vaelin/issues"
+
+[project.scripts]
+vaelin-bootstrap = "vaelin.bootstrap:main"
+
+[tool.setuptools.packages.find]
+include = ["vaelin*"]
+exclude = ["net*", "scripts*", "demos*", "docs*", "fixtures*", "hermes_*", "tests*"]
