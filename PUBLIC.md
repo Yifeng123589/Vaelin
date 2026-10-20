@@ -18,6 +18,7 @@ This tree does **not** ship companion production sessions, full eval corpora, se
 | Vault seed | **Synthetic／redacted** role skeletons only（never production vault） |
 | Experiment summary | q10 report **conclusion＋preregistration abstract** only（see `docs/exp/q10_summary.md`） |
 | Meta | `LICENSE`（MIT）、`SECURITY.md`、this `PUBLIC.md` |
+| Root UX entry | Root `README.md` first-run path + `demos/ui/` local Web demo shell (fixture-only; **demo ≠ production**; non-production) |
 
 ## Not published（default）
 

@@ -22,3 +22,6 @@ build/
 env_snapshot.json
 *.pem
 *.key
+
+# ephemeral local venvs
+.venv_*/
