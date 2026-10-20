@@ -26,6 +26,27 @@ Open **http://127.0.0.1:8765/** (HTTP, not `file://`). Details: [`demos/ui/READM
 
 ---
 
+
+## 桌面窗怎么开（Windows）
+
+独立 Electron 桌面窗加载同一套 fixture UI。**demo ≠ production**。零 Hermes、禁公网隧道、无 installer／商店／自动更新。
+
+```bat
+cd demos\desktop
+start_desktop.bat
+```
+
+或：`npm install --no-audit --no-fund --save-exact` → `npm start`（需本机 Node.js／npm）。
+
+- 默认端口 **8766**＠`127.0.0.1`（占用顺延；控制台打印实际端口）
+- 窗口标题含 **DEMO · 非生产**
+- 详情：[`demos/desktop/README.md`](demos/desktop/README.md)
+
+浏览器演示仍用上一节 `demos/ui`（端口 8765）；桌面窗不替代、不破坏 Web 路径。
+
+
+---
+
 ## Install (editable)
 
 Python **≥ 3.10**. From the repository root:
@@ -80,6 +101,7 @@ Full publish / exclusion boundary: [`PUBLIC.md`](PUBLIC.md). Security: [`SECURIT
 | Path | Role |
 |---|---|
 | `demos/ui/` | Local Web UI demo shell (fixture-only; **demo ≠ production**) |
+| `demos/desktop/` | Local **Electron desktop** demo shell (thin wrapper; fixture-only; **demo ≠ production**; default port 8766) |
 | `net/` | Core library (handoff / executor / workflow_log / lead* / vault I/O) |
 | `net/_test_*.py` | Unit tests (Path A) |
 | `scripts/bootstrap.py` | Path A one-shot layout check + unit tests |
@@ -102,6 +124,7 @@ Discussions are off. [Issue #1](https://github.com/Yifeng123589/Vaelin/issues/1)
 工作层关系网控制面：派工、落账、熔断、人审边界。
 
 - **先看演示**：`cd demos/ui` → `start_demo.bat`（或 `python -m http.server 8765 --bind 127.0.0.1`）→ 打开 http://127.0.0.1:8765/ · **demo ≠ production**
+- **桌面窗**：`cd demos\desktop` → `start_desktop.bat`（或 `npm install`＋`npm start`）→ 独立 Electron 窗 · 端口 **8766** · **demo ≠ production** · 零 Hermes
 - **安装**：`pip install -e .`（Python ≥3.10；零强制 API key；**install ≠ enable**）
 - **验证**：`vaelin-bootstrap` 或 `python scripts/bootstrap.py` → 期望 workflow_log **27**／handoff **15** pass
 

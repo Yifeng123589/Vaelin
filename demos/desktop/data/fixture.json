@@ -1,0 +1,910 @@
+{
+  "brand": {
+    "name": "Vaelin",
+    "tagline": "关系网工作层 · 研究原型演示",
+    "disclaimer": "本页为演示 · 非生产 · 无真实用户数据",
+    "version": "S9 · 本地再加深 · 2026-10-19"
+  },
+  "sessions": [
+    {
+      "id": "demo-s1",
+      "title": "示例：周报草稿",
+      "updated": "2026-10-16 14:20",
+      "preview": "帮我整理本周三条进展…",
+      "tags": [
+        "周报",
+        "录屏"
+      ]
+    },
+    {
+      "id": "demo-s2",
+      "title": "示例：阅读笔记",
+      "updated": "2026-10-15 18:42",
+      "preview": "把这篇摘要成要点…",
+      "tags": [
+        "阅读",
+        "边界"
+      ]
+    },
+    {
+      "id": "demo-s3",
+      "title": "示例：任务拆解",
+      "updated": "2026-10-14 09:05",
+      "preview": "把目标拆成可执行步骤…",
+      "tags": [
+        "任务"
+      ]
+    },
+    {
+      "id": "demo-s4",
+      "title": "示例：会议纪要提纲",
+      "updated": "2026-10-13 16:30",
+      "preview": "按议程列三条行动项…",
+      "tags": [
+        "会议",
+        "录屏"
+      ]
+    },
+    {
+      "id": "demo-s5",
+      "title": "示例：边界口径校对",
+      "updated": "2026-10-12 11:18",
+      "preview": "演示壳对外怎么说…",
+      "tags": [
+        "边界"
+      ]
+    },
+    {
+      "id": "demo-s6",
+      "title": "示例：录屏故事板顺口",
+      "updated": "2026-10-16 16:05",
+      "preview": "五步录屏顺序怎么讲…",
+      "tags": [
+        "录屏",
+        "故事板"
+      ]
+    }
+  ],
+  "messages": {
+    "demo-s1": [
+      {
+        "role": "user",
+        "text": "帮我整理本周三条进展，语气正式一点。"
+      },
+      {
+        "role": "assistant",
+        "text": "好的。下面是演示用的假回复：\n1. 完成公开边界草案校对\n2. 主动式叙事面入口已记\n3. 观察线继续等流量（未接生产）\n\n（以上为 fixture，非真实会话。）"
+      },
+      {
+        "role": "user",
+        "text": "把第 2 条再缩短一点。"
+      },
+      {
+        "role": "assistant",
+        "text": "2. 主动式公开叙事入口已落（演示假数据）"
+      },
+      {
+        "role": "user",
+        "text": "再加一句「本地演示壳可截图」。"
+      },
+      {
+        "role": "assistant",
+        "text": "已并入第 3 条旁注：本地 UI 演示壳可截图宣传（非生产 · 假数据）。\n\n（仍为 fixture 合成文案。）"
+      },
+      {
+        "role": "user",
+        "text": "整段给我成一段可直接贴的摘要。"
+      },
+      {
+        "role": "assistant",
+        "text": "本周演示摘要（假数据）：公开边界草案已校对；主动式公开叙事入口已落；观察线继续等流量，本地 UI 演示壳可截图宣传（非生产 · 未接 Hermes）。"
+      }
+    ],
+    "demo-s2": [
+      {
+        "role": "user",
+        "text": "把这篇摘要成三点。"
+      },
+      {
+        "role": "assistant",
+        "text": "演示摘要：\n· 边界先于壳\n· 假数据可截图\n· 零接 Hermes"
+      },
+      {
+        "role": "user",
+        "text": "第四点补「默不 push」。"
+      },
+      {
+        "role": "assistant",
+        "text": "· 本加深阶段默不 push 公开远程（演示假数据）"
+      },
+      {
+        "role": "user",
+        "text": "再补「公开叙事只读索引」。"
+      },
+      {
+        "role": "assistant",
+        "text": "· 公开叙事／PUBLIC／proactive 仅路径纯文本互链；不同批 push；禁 file:// vault（fixture）"
+      },
+      {
+        "role": "user",
+        "text": "成一段可贴摘要。"
+      },
+      {
+        "role": "assistant",
+        "text": "演示摘要（假数据）：边界先于壳；假数据可截图；零接 Hermes；默不 push；公开叙事只读索引＝路径纯文本，不同批 push。"
+      }
+    ],
+    "demo-s3": [
+      {
+        "role": "user",
+        "text": "拆成三步可执行清单。"
+      },
+      {
+        "role": "assistant",
+        "text": "1. 落 staging\n2. 多屏假数据\n3. 自检清单 PASS"
+      },
+      {
+        "role": "user",
+        "text": "加第四步：设置／关于可截图。"
+      },
+      {
+        "role": "assistant",
+        "text": "4. 设置占位＋关于／边界屏（静态 · 只读）（fixture）"
+      }
+    ],
+    "demo-s4": [
+      {
+        "role": "user",
+        "text": "按议程列三条行动项，语气中性。"
+      },
+      {
+        "role": "assistant",
+        "text": "行动项（演示假数据）：\nA. 确认演示壳仅绑 127.0.0.1\nB. 核对顶栏「非生产」声明仍可见\nC. 截图前再扫一遍无密钥／真实对话"
+      },
+      {
+        "role": "user",
+        "text": "把 B 写成「黄条常驻」。"
+      },
+      {
+        "role": "assistant",
+        "text": "B. 顶栏黄条常驻：本页为演示 · 非生产 · 无真实用户数据"
+      }
+    ],
+    "demo-s5": [
+      {
+        "role": "user",
+        "text": "对外怎么说这个壳？一句就行。"
+      },
+      {
+        "role": "assistant",
+        "text": "本地可截图的宣传演示壳：假数据、零接 Hermes、未迁 CEV 生产。（fixture）"
+      },
+      {
+        "role": "user",
+        "text": "再补「三模式只是灰态」。"
+      },
+      {
+        "role": "assistant",
+        "text": "氧气／凯撒／玥仅为远景静态灰态占位，无后端接线。（仍为合成文案）"
+      }
+    ],
+    "demo-s6": [
+      {
+        "role": "user",
+        "text": "录屏五步顺序怎么讲？"
+      },
+      {
+        "role": "assistant",
+        "text": "演示故事板（假数据）：\n1. 首页边界 chips\n2. 假会话占位\n3. 设置硬闸（Hermes／vault 禁用）\n4. 公开叙事只读索引\n5. 非生产声明"
+      },
+      {
+        "role": "user",
+        "text": "第四步改成「关于口径＋公开叙事」。"
+      },
+      {
+        "role": "assistant",
+        "text": "4. 关于／边界口径 → 公开叙事只读索引（路径纯文本 · 不同批 push）"
+      },
+      {
+        "role": "user",
+        "text": "加一句暗色假主题可切。"
+      },
+      {
+        "role": "assistant",
+        "text": "设置屏可切暗色假主题（仅当页 class · 无真持久化 · 无后端）。（fixture）"
+      }
+    ]
+  },
+  "modes": [
+    {
+      "id": "oxygen",
+      "label": "氧气",
+      "state": "灰态 · 未连接",
+      "note": "远景静态占位 · 无 live 调度 · 无后端"
+    },
+    {
+      "id": "caesar",
+      "label": "凯撒",
+      "state": "灰态 · 未连接",
+      "note": "远景静态占位 · 无 Obsidian 真数据 · 无后端"
+    },
+    {
+      "id": "yue",
+      "label": "玥",
+      "state": "灰态 · 未连接",
+      "note": "远景静态占位 · 无 zip 真加载 · 无后端"
+    }
+  ],
+  "status": {
+    "env": "demo-shell · S9",
+    "hermes": "未连接（硬闸 · 设置屏禁用）",
+    "cev": "旁路／沙箱实验（未上生产 · 非已验收）",
+    "data": "纯假数据 fixture（S9 双栏／胶片／清单／字幕·REC）",
+    "push": "本 S9 未 push"
+  },
+  "settings": {
+    "theme": {
+      "label": "主题",
+      "value": "浅色／暗色假切换",
+      "editable": true,
+      "toggle": "theme",
+      "gate": "当页 CSS class；可本壳 localStorage 记忆；无 Hermes"
+    },
+    "language": {
+      "label": "语言",
+      "value": "中文（演示）",
+      "editable": false
+    },
+    "density": {
+      "label": "信息密度",
+      "value": "标准／紧凑假切换",
+      "editable": true,
+      "toggle": "density",
+      "gate": "当页 CSS class；可本壳记忆；干净模式会开紧凑"
+    },
+    "hermes_connect": {
+      "label": "连接 Hermes",
+      "value": "禁用",
+      "editable": false,
+      "gate": "硬闸：演示壳零接生产 Hermes／hooks／plugins／scheduler"
+    },
+    "vault_access": {
+      "label": "读取 vault",
+      "value": "禁用",
+      "editable": false,
+      "gate": "禁接真实会话／SEALED／audit"
+    },
+    "persist": {
+      "label": "设置持久化",
+      "value": "本壳 localStorage（S7 · 演示偏好）",
+      "editable": false,
+      "gate": "仅 vaelin.uiDemo.s7.*；禁写 Hermes／vault／生产配置；隐私模式可降级当页内存"
+    },
+    "high_contrast": {
+      "label": "高对比",
+      "value": "关／开假切换",
+      "editable": true,
+      "toggle": "contrast",
+      "gate": "当页 CSS class；干净模式默认不改高对比"
+    },
+    "watermark": {
+      "label": "演示水印叠层",
+      "value": "开／关假切换",
+      "editable": true,
+      "toggle": "watermark",
+      "gate": "半透明叠层；干净模式会关水印；可本壳记忆"
+    },
+    "clean_mode": {
+      "label": "截图干净模式",
+      "value": "一键：关水印＋开紧凑（可还原）",
+      "editable": true,
+      "toggle": "clean",
+      "gate": "录屏／对外截图用；高对比保持进入前状态；快捷键 g；无后端"
+    }
+  },
+  "about": {
+    "title": "关于／边界",
+    "summary": "Vaelin UI 演示壳 S9：在 S8 上本地再加深（讲者双栏、导览胶片条、当面开场清单、录屏字幕／REC 角标）。仍零接 Hermes；默不 push；三模式静态灰态。",
+    "boundaries": [
+      "零接生产 Hermes／hooks／plugins／scheduler／Bot Chat",
+      "不接 vault／真实对话／API key；不展 SEALED",
+      "CEV＝旁路／沙箱实验口径；不得写成已上生产或强口径已验收",
+      "氧气／凯撒／玥：静态灰态文案；无 live 接线",
+      "本 S6 默不 push；禁止公网隧道",
+      "公开叙事／pitch／对照／导出／changelog＝路径纯文本（及可选公开 https）；禁 file:// vault；不同批 push／未宣称已上生产",
+      "深链／讲者／水印／密度／toast／导览／检索／复制／假导出＝纯客户端；无遥测、无鉴权、无后端、无上传",
+      "护栏细表／危机细则／破甲题面／q10 replay／G2 全文：禁进壳",
+      "S7：帮助／干净模式／讲者加厚／本壳 localStorage＝演示专用；禁生产路径",
+      "S8：场景预览／讲者计时／讲稿打印／a11y＝演示专用；禁生产路径",
+      "S9：双栏／胶片／开场清单／字幕·REC＝演示专用；禁真录制／禁生产路径"
+    ],
+    "doc_paths": [
+      "docs/3_生产系统与观察/UI演示壳_公开边界与S1_待签_v0_20261016.md",
+      "docs/3_生产系统与观察/UI演示壳_S2_待签_v0_20261016.md",
+      "docs/3_生产系统与观察/UI演示壳_S3_待签_v0_20261016.md",
+      "docs/3_生产系统与观察/UI_三模式远景_氧气凯撒玥_v0_20261012.md",
+      "docs/3_生产系统与观察/UI演示壳_S4_待签_v0_20261016.md",
+      "docs/3_生产系统与观察/UI演示壳_S5_待签_v0_20261016.md",
+      "docs/3_生产系统与观察/UI演示壳_S6_待签_v0_20261016.md"
+    ],
+    "note": "上列为仓库内路径纯文本，供对照口径；本壳不自动打开生产目录，亦不提供 file:// 跳转。"
+  },
+  "public_links": {
+    "title": "已公开叙事／边界索引（只读）",
+    "intro": "以下为仓库内已公开／待公开叙事面的路径纯文本索引，供录屏与对照。不同批 push；本壳未宣称已同批上生产；禁 file:// 打开 vault。",
+    "items": [
+      {
+        "group": "UI 演示壳边界",
+        "label": "公开边界与 S1（已 PASS）",
+        "path": "docs/3_生产系统与观察/UI演示壳_公开边界与S1_待签_v0_20261016.md",
+        "note": "边界先于壳 · 本地 staging"
+      },
+      {
+        "group": "UI 演示壳边界",
+        "label": "S2 本地加深（已签并执行）",
+        "path": "docs/3_生产系统与观察/UI演示壳_S2_待签_v0_20261016.md",
+        "note": "设置／关于屏 · 假数据加厚"
+      },
+      {
+        "group": "UI 演示壳边界",
+        "label": "S3 本地再加深（已签并执行）",
+        "path": "docs/3_生产系统与观察/UI演示壳_S3_待签_v0_20261016.md",
+        "note": "公开叙事索引 · 故事板 · 视觉第二刀"
+      },
+      {
+        "group": "UI 演示壳边界",
+        "label": "S4 本地再加深（已签并执行）",
+        "path": "docs/3_生产系统与观察/UI演示壳_S4_待签_v0_20261016.md",
+        "note": "导览 · pitch · 假检索 · 无障碍／打印"
+      },
+      {
+        "group": "UI 演示壳边界",
+        "label": "S5 本地再加深（已签并执行）",
+        "path": "docs/3_生产系统与观察/UI演示壳_S5_待签_v0_20261016.md",
+        "note": "跳步／聚光 · 对照 · 假过滤 · 假导出 · 空态开关"
+      },
+      {
+        "group": "UI 演示壳边界",
+        "label": "S6 本地再加深（本单）",
+        "path": "docs/3_生产系统与观察/UI演示壳_S6_待签_v0_20261016.md",
+        "note": "hash 深链 · 讲者 · 水印 · 密度／高对比 · toast · changelog"
+      },
+      {
+        "group": "主动式／提前开源",
+        "label": "主动式提前开源 S1 待签",
+        "path": "docs/3_生产系统与观察/主动式_提前开源_S1_待签_v0_20261015.md",
+        "note": "只读点名 · 不同批 push"
+      },
+      {
+        "group": "主动式／提前开源",
+        "label": "主动式提前开源 S2 push Vaelin 待签",
+        "path": "docs/3_生产系统与观察/主动式_提前开源_S2_push_Vaelin_待签_v0_20261015.md",
+        "note": "另拍通道 · 非本 S4 默 push"
+      },
+      {
+        "group": "PUBLIC／公开仓",
+        "label": "PUBLIC 开源边界草案",
+        "path": "docs/4_关系网工程/PUBLIC_开源边界_草案_v0_20261011.md",
+        "note": "公开仓边界草案 · 路径纯文本"
+      },
+      {
+        "group": "PUBLIC／公开仓",
+        "label": "公开仓 PUBLIC 定稿裁剪",
+        "path": "docs/4_关系网工程/公开仓_PUBLIC_定稿裁剪_v0_20261013.md",
+        "note": "定稿裁剪 · 非本壳同批上仓"
+      },
+      {
+        "group": "远景（只读）",
+        "label": "UI 三模式远景（氧气／凯撒／玥）",
+        "path": "docs/3_生产系统与观察/UI_三模式远景_氧气凯撒玥_v0_20261012.md",
+        "note": "只读引用 · 勿复活生产接线"
+      }
+    ],
+    "footer": "互链＝路径纯文本；可选公开 https 仅作说明；禁 file:// vault；本 S6 未 push；对照／导出／changelog 不得写成已同批上仓。"
+  },
+  "storyboard": {
+    "title": "录屏／当面导览故事板",
+    "subtitle": "建议 6 步 · 假数据 · 可点进度点跳步 · 轻量聚光 · hash 深链可直达 · 一页 pitch／对照可截",
+    "steps": [
+      {
+        "n": 1,
+        "title": "首页边界",
+        "hint": "chips＋黄条 · 演示≠生产",
+        "screen": "screen-home",
+        "spotlight": "#screen-home .hero"
+      },
+      {
+        "n": 2,
+        "title": "假会话＋检索",
+        "hint": "列表＋消息假过滤 · 输入只读",
+        "screen": "screen-chat",
+        "spotlight": "#screen-chat .chat-layout"
+      },
+      {
+        "n": 3,
+        "title": "设置硬闸",
+        "hint": "Hermes／vault 禁用可见",
+        "screen": "screen-settings",
+        "spotlight": "#screen-settings .settings-wrap"
+      },
+      {
+        "n": 4,
+        "title": "公开叙事＋关于",
+        "hint": "路径纯文本索引 · 口径",
+        "screen": "screen-public",
+        "spotlight": "#screen-public .public-wrap"
+      },
+      {
+        "n": 5,
+        "title": "一页 pitch",
+        "hint": "同屏 pitch＋对照 · 可复制／假导出",
+        "screen": "screen-pitch",
+        "spotlight": "#screen-pitch .pitch-wrap"
+      },
+      {
+        "n": 6,
+        "title": "非生产声明",
+        "hint": "声明页收口 · 可回滚句",
+        "screen": "screen-decl",
+        "spotlight": "#screen-decl .decl"
+      }
+    ]
+  },
+  "demo_tour": {
+    "title": "演示导览",
+    "help": "←／→ 导览步进（未开导览时先启动） · 点进度点跳步 · ? 开／关帮助 · Esc 关帮助或关导览 · g 一键截图干净模式（关水印＋开紧凑；再按还原） · p 开／合讲者条 · hash 深链示例 #screen-pitch · #screen-decl · 未知 hash 回首页 · 无遥测 · 无鉴权 · 127.0.0.1 only · t 讲者计时 · n 下一屏预览 · Shift+P 讲稿打印视图 · Shift+D 双栏 · c 开场清单 · r REC · Shift+C 字幕",
+    "start_hint": "按 ? 或点「?」打开全键位帮助；g＝截图干净模式",
+    "keymap": [
+      {
+        "key": "← / →",
+        "action": "导览上一步／下一步（必要时自动开导览）"
+      },
+      {
+        "key": "?",
+        "action": "开／关全键位帮助面板"
+      },
+      {
+        "key": "Esc",
+        "action": "先关帮助；否则关导览"
+      },
+      {
+        "key": "g",
+        "action": "开／关「截图干净模式」（关水印＋开紧凑；再按还原进入前状态）"
+      },
+      {
+        "key": "p",
+        "action": "开／合讲者备注条"
+      },
+      {
+        "key": "顶栏按钮",
+        "action": "切屏并写 location.hash（如 #screen-pitch）"
+      },
+      {
+        "key": "进度点",
+        "action": "导览中跳到对应故事板步骤"
+      },
+      {
+        "key": "t",
+        "action": "讲者计时启／停"
+      },
+      {
+        "key": "n",
+        "action": "显示／隐藏下一屏预览"
+      },
+      {
+        "key": "Shift+P",
+        "action": "打开讲稿打印／假导出视图"
+      },
+      {
+        "key": "Shift+D",
+        "action": "讲者双栏开／关"
+      },
+      {
+        "key": "r",
+        "action": "REC 角标开／关"
+      },
+      {
+        "key": "Shift+C",
+        "action": "字幕条开／关"
+      }
+    ]
+  },
+  "pitch": {
+    "title": "一页讲完 · Pitch",
+    "brand_line": "Vaelin · 本地可截图的宣传演示壳（非生产）",
+    "chips": [
+      "演示 ≠ 生产",
+      "纯假数据",
+      "零 Hermes",
+      "CEV＝旁路／沙箱",
+      "本 S9 不 push",
+      "深链／toast＝客户端"
+    ],
+    "gates": [
+      "不改／不启生产 Hermes、hooks、plugins、scheduler",
+      "不接 vault／真实会话／audit；不展 SEALED",
+      "不把 CEV 写成已上生产或公开可装；此处仅旁路／沙箱实验口径",
+      "氧气／凯撒／玥：静态灰态，无 live 调度／无感注入",
+      "深链／讲者／水印／密度／toast／导览／检索／复制／假导出无后端、无遥测、无鉴权、无上传",
+      "默不 push；禁止公网隧道；禁 file:// vault"
+    ],
+    "footer": "30～60 秒口头 pitch／打印手出 · S9 本地再加深 · 零 Hermes · 默不 push"
+  },
+  "filter_tags": [
+    "全部",
+    "周报",
+    "边界",
+    "录屏",
+    "阅读",
+    "任务",
+    "会议",
+    "故事板"
+  ],
+  "compare": {
+    "title": "演示 vs 生产 · 对照卡",
+    "subtitle": "同屏可截 · 服务 30～60 秒口头 pitch · 非已上仓叙事",
+    "demo_label": "演示壳允许",
+    "ban_label": "硬禁（本壳绝不做）",
+    "demo": [
+      "假数据截图／录屏／当面导览",
+      "本地 127.0.0.1 打开 staging",
+      "客户端 hash 深链／讲者／水印／密度／toast／跳步／假过滤／复制／假导出",
+      "静态三模式灰态文案",
+      "路径纯文本公开叙事索引＋S1–S5 加深时间线"
+    ],
+    "ban": [
+      "接生产 Hermes／hooks／plugins／scheduler",
+      "接 vault／真实对话／SEALED／audit",
+      "CEV 迁生产或写成已验收／已上仓",
+      "本 S6 同批 push／公网隧道",
+      "file:// 打开生产 vault／真鉴权埋点／公网短链"
+    ]
+  },
+  "copy_lines": [
+    {
+      "id": "disclaimer",
+      "label": "对外口径句",
+      "text": "本页为演示 · 非生产 · 无真实用户数据"
+    },
+    {
+      "id": "one_liner",
+      "label": "一句话介绍",
+      "text": "本地可截图的宣传演示壳：假数据、零接 Hermes、未迁 CEV 生产、本加深默不 push。"
+    },
+    {
+      "id": "gates",
+      "label": "硬闸短句",
+      "text": "零 Hermes · 禁 vault · CEV＝旁路／沙箱 · 三模式仅灰态 · 默不 push · 禁 file:// vault"
+    },
+    {
+      "id": "s6",
+      "label": "S6 加深句",
+      "text": "S6 本地再加深：hash 深链 · 讲者备注 · 演示水印 · 紧凑／高对比假模式 · 复制·导出 toast · S1–S5 加深时间线（纯客户端）。"
+    }
+  ],
+  "export_pitch": {
+    "filename": "vaelin-ui-demo-pitch-S6.md",
+    "title": "Vaelin UI 演示壳 · 一页 pitch（S6 · 非生产）"
+  },
+  "msg_filter_roles": [
+    "全部",
+    "user",
+    "assistant"
+  ],
+  "watermark": {
+    "text": "演示 · 非生产 · 无真实用户数据",
+    "default_on": true
+  },
+  "presenter_notes": {
+    "title": "讲者备注／talk track",
+    "default_collapsed": true,
+    "by_screen": {
+      "screen-home": {
+        "goal": "30 秒开场：这是本地可截图的宣传壳，不是生产安装态。",
+        "points": [
+          "点顶栏黄条与 chips：演示 ≠ 生产 · 零 Hermes · 本 S9 不 push",
+          "可点「开始导览」或顶栏「导览」；hash 如 #screen-pitch 可直达",
+          "需要干净截图：设置屏一键「截图干净模式」（关水印＋开紧凑）"
+        ],
+        "warn": "勿说成「已接 Hermes 生产」或「CEV 已上仓验收」。"
+      },
+      "screen-chat": {
+        "goal": "展示假会话列表与消息流过滤；强调输入只读。",
+        "points": [
+          "左侧假检索／标签 chips；右侧消息角色／关键词假过滤",
+          "发送按钮禁用＝未接模型／Hermes",
+          "右侧三模式轨＝氧气／凯撒／玥静态灰态，无 live 接线"
+        ],
+        "warn": "列表与气泡均为 fixture 假数据，不是真实用户对话。"
+      },
+      "screen-status": {
+        "goal": "一眼看懂演示环境与硬闸；对照「演示 vs 生产」。",
+        "points": [
+          "Hermes＝未连接；CEV＝旁路／沙箱口径，不说已上生产",
+          "演示 vs 生产对照卡：截图时对着念即可",
+          "硬闸列表可作 Q&A 底稿"
+        ],
+        "warn": "三模式灰态 ≠ 功能已启用。"
+      },
+      "screen-settings": {
+        "goal": "演示假开关与硬禁用连接项；演示偏好可本壳记忆。",
+        "points": [
+          "Hermes／vault 按钮永久禁用且可见",
+          "暗色／紧凑／高对比／水印＝演示控件；干净模式一键关水印＋开紧凑",
+          "S7：偏好可写入本壳 localStorage（清站数据即丢）；禁写生产路径"
+        ],
+        "warn": "不要演示「连接生产」路径；不要打开 file:// vault。"
+      },
+      "screen-public": {
+        "goal": "公开叙事＝路径纯文本索引，服务「边开发边等流量」口述。",
+        "points": [
+          "条目可念 label＋path；强调不同批 push",
+          "禁 file:// 打开 vault／SEALED",
+          "与 pitch／关于屏互补，不替代正式 Release notes"
+        ],
+        "warn": "索引≠已同批上仓；勿写成生产里程碑。"
+      },
+      "screen-pitch": {
+        "goal": "一页讲完：chips → 硬闸 → 对照 → 复制／假导出。",
+        "points": [
+          "先念 brand 一句与前三枚 ok chips",
+          "复制对外口径／假导出 Markdown＝本地下载，无上传",
+          "changelog 只讲演示壳本地加深（S1–S7）"
+        ],
+        "warn": "假导出成功 toast ≠ 已 push 公开远程。"
+      },
+      "screen-about": {
+        "goal": "边界摘要＋可复制口径＋加深时间线。",
+        "points": [
+          "boundaries 列表＝对外禁语／禁物料核对清单",
+          "复制口径条可现场粘贴到备忘",
+          "changelog＝壳怎么长出来，不是 Hermes 生产验收史"
+        ],
+        "warn": "文档路径纯文本展示；勿自动打开本机生产目录。"
+      },
+      "screen-decl": {
+        "goal": "收口：再钉非生产声明与回滚口径。",
+        "points": [
+          "画面须能辨认「演示／非生产」（黄条／水印／本页标题）",
+          "回滚：从 .preUiDemoS7-* 还原 S6 态",
+          "本 S7 未改生产 Hermes；默不 push；禁公网隧道"
+        ],
+        "warn": "截图物料不得含真实对话、key、护栏细表、破甲题面。"
+      }
+    }
+  },
+  "talk_track": {
+    "title": "30～60 秒口头轨",
+    "steps": [
+      "开场：本地可截图宣传壳 · 非生产 · 零 Hermes · S9 不 push",
+      "深链：#screen-pitch 直达；导览 ←／→ · ? 帮助 · Esc 关闭 · g 干净模式",
+      "硬闸：禁接 vault · CEV 未迁生产 · 三模式仍灰态 · 禁公网隧道",
+      "收口：干净模式截「干净 UI」；讲者条可展开；偏好仅本壳记忆"
+    ]
+  },
+  "changelog": {
+    "title": "演示壳加深时间线（S1–S9 · 只读）",
+    "subtitle": "仅描述本地 staging 加深事实 · 勿写成 Hermes／CEV 生产里程碑",
+    "items": [
+      {
+        "id": "s1",
+        "ver": "S1",
+        "date": "2026-10-16",
+        "title": "公开边界＋首版 staging",
+        "note": "本地 Web 壳落地；假数据；零 Hermes；顶栏非生产声明"
+      },
+      {
+        "id": "s2",
+        "ver": "S2",
+        "date": "2026-10-16",
+        "title": "设置／关于屏",
+        "note": "设置占位＋关于／边界；Hermes／vault 硬禁用可见"
+      },
+      {
+        "id": "s3",
+        "ver": "S3",
+        "date": "2026-10-16",
+        "title": "公开叙事＋故事板",
+        "note": "公开叙事只读索引；录屏故事板；视觉第二刀"
+      },
+      {
+        "id": "s4",
+        "ver": "S4",
+        "date": "2026-10-16",
+        "title": "导览＋pitch＋假检索",
+        "note": "演示导览底栏；一页 pitch；会话列表假检索；无障碍／打印"
+      },
+      {
+        "id": "s5",
+        "ver": "S5",
+        "date": "2026-10-16",
+        "title": "跳步／对照／假过滤／假导出",
+        "note": "进度点跳步＋聚光；演示 vs 生产对照；消息假过滤；复制／本地假导出；空态开关"
+      },
+      {
+        "id": "s6",
+        "ver": "S6",
+        "date": "2026-10-16",
+        "title": "深链／讲者／水印／密度／toast／时间线",
+        "note": "本轮：hash 深链 · 讲者备注 · 演示水印 · 紧凑／高对比 · toast · changelog（仍零 Hermes · 未 push）"
+      },
+      {
+        "id": "s7",
+        "ver": "S7",
+        "date": "2026-10-17",
+        "title": "帮助加厚 · 干净模式 · 讲者补全 · 本壳偏好",
+        "note": "导览全键位／帮助加厚；一键截图干净模式（关水印＋开紧凑可还原）；各屏讲者备注补全；可选本壳 localStorage；零 Hermes · 未 push。"
+      },
+      {
+        "id": "s8",
+        "ver": "S8",
+        "date": "2026-10-17",
+        "title": "场景预览 · 讲者计时 · 讲稿打印 · a11y",
+        "note": "下一屏预览；讲者计时；讲稿假导出／打印友好；无障碍再刀；零 Hermes · 未 push。"
+      },
+      {
+        "id": "s9",
+        "ver": "S9",
+        "date": "2026-10-19",
+        "title": "讲者双栏 · 胶片条 · 开场清单 · 字幕／REC",
+        "note": "讲者双栏；导览胶片条；当面开场清单；录屏字幕／REC 角标；零 Hermes · 未 push。"
+      }
+    ]
+  },
+  "scene_previews": {
+    "title": "下一屏预览",
+    "by_screen": {
+      "screen-home": {
+        "title": "首页",
+        "hint": "开场 chips · 故事板 · 开始导览"
+      },
+      "screen-chat": {
+        "title": "会话占位",
+        "hint": "假列表／假过滤 · 三模式灰态轨"
+      },
+      "screen-status": {
+        "title": "状态／模式",
+        "hint": "Hermes 未连接 · 演示 vs 生产对照"
+      },
+      "screen-settings": {
+        "title": "设置",
+        "hint": "干净模式 · 本壳偏好 · 硬禁用连接"
+      },
+      "screen-public": {
+        "title": "公开叙事",
+        "hint": "路径纯文本索引 · 不同批 push"
+      },
+      "screen-pitch": {
+        "title": "一页 pitch",
+        "hint": "复制口径 · 假导出 · changelog"
+      },
+      "screen-about": {
+        "title": "关于／边界",
+        "hint": "边界摘要 · 讲稿导出入口"
+      },
+      "screen-decl": {
+        "title": "非生产声明",
+        "hint": "回滚口径 · S9 声明"
+      }
+    }
+  },
+  "presenter_timer": {
+    "label": "讲者计时",
+    "default_visible": true,
+    "target_seconds": 60,
+    "hint": "当面口播用 · 默不自动开始 · 无云同步"
+  },
+  "talk_script": {
+    "title": "演示讲稿（假导出／打印）",
+    "subtitle": "由讲者备注＋口头轨＋pitch 口径拼装 · 本机打印另存 PDF · 无上传",
+    "footer": "Vaelin UI 演示壳 S9 · 非生产 · 零 Hermes · 默不 push"
+  },
+  "filmstrip": {
+    "title": "导览胶片条",
+    "hint": "点击跳屏 · 当前高亮 · 无远程缩略图",
+    "items": [
+      {
+        "id": "screen-home",
+        "n": 1,
+        "label": "首页",
+        "badge": "首"
+      },
+      {
+        "id": "screen-chat",
+        "n": 2,
+        "label": "会话占位",
+        "badge": "会"
+      },
+      {
+        "id": "screen-status",
+        "n": 3,
+        "label": "状态／模式",
+        "badge": "状"
+      },
+      {
+        "id": "screen-settings",
+        "n": 4,
+        "label": "设置",
+        "badge": "设"
+      },
+      {
+        "id": "screen-public",
+        "n": 5,
+        "label": "公开叙事",
+        "badge": "公"
+      },
+      {
+        "id": "screen-pitch",
+        "n": 6,
+        "label": "一页 pitch",
+        "badge": "一"
+      },
+      {
+        "id": "screen-about",
+        "n": 7,
+        "label": "关于／边界",
+        "badge": "关"
+      },
+      {
+        "id": "screen-decl",
+        "n": 8,
+        "label": "非生产声明",
+        "badge": "非"
+      }
+    ]
+  },
+  "opening_checklist": {
+    "title": "当面开场／收场清单",
+    "subtitle": "本壳勾选 · 可本场重置 · 无云同步 · 不强制门禁",
+    "items": [
+      {
+        "id": "banner",
+        "label": "顶栏「演示 · 非生产」声明可见"
+      },
+      {
+        "id": "clean",
+        "label": "干净模式按需（截图用 g；当面可关）"
+      },
+      {
+        "id": "timer",
+        "label": "讲者计时已复位"
+      },
+      {
+        "id": "modes",
+        "label": "三模式话术＝灰态 · 勿说已接线"
+      },
+      {
+        "id": "tunnel",
+        "label": "未开公网隧道 · 仅 127.0.0.1"
+      },
+      {
+        "id": "dual",
+        "label": "讲者双栏按需（Shift+D；默认关）"
+      },
+      {
+        "id": "rec",
+        "label": "录屏字幕／REC 角标按需（勿真录制）"
+      }
+    ]
+  },
+  "caption_by_screen": {
+    "screen-home": "30 秒开场：这是本地可截图的宣传壳，不是生产安装态。",
+    "screen-chat": "展示假会话列表与消息流过滤；强调输入只读。",
+    "screen-status": "一眼看懂演示环境与硬闸；对照「演示 vs 生产」。",
+    "screen-settings": "演示假开关与硬禁用连接项；演示偏好可本壳记忆。",
+    "screen-public": "公开叙事＝路径纯文本索引，服务「边开发边等流量」口述。",
+    "screen-pitch": "一页讲完：chips → 硬闸 → 对照 → 复制／假导出。",
+    "screen-about": "边界摘要＋可复制口径＋加深时间线。",
+    "screen-decl": "收口：再钉非生产声明与回滚口径。"
+  },
+  "rec_overlay": {
+    "badge": "REC · DEMO",
+    "default_on": false,
+    "caption_default_on": true,
+    "note": "仅视觉叠层 · 不调用 getUserMedia／MediaRecorder · 无上传"
+  },
+  "dual_pane": {
+    "default_on": false,
+    "hint": "左观众壳／右讲者备注＋计时＋下一屏一句 · Shift+D"
+  }
+}

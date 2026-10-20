@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vaelin · UI 演示壳（非生产）</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="css/demo.css">
+</head>
+<body>
+  <a id="skip-to-main" class="skip-link" href="#main-content">跳到主内容</a>
+  <div id="np-banner" role="status" aria-live="polite">
+    <span class="np-text">本页为演示 · 非生产 · 无真实用户数据</span>
+    <span class="sub">零接 Hermes · 未迁 CEV 生产 · 假数据 fixture · S9</span>
+  </div>
+
+  <div id="demo-watermark" class="demo-watermark" aria-hidden="true" hidden></div>
+
+  <header class="app-header">
+    <span class="brand" id="brand-name">Vaelin</span>
+    <span class="tag" id="brand-tag">关系网工作层 · 研究原型演示</span>
+    <nav aria-label="演示屏">
+      <button type="button" data-screen="screen-home" class="active">首页</button>
+      <button type="button" data-screen="screen-chat">会话占位</button>
+      <button type="button" data-screen="screen-status">状态／模式</button>
+      <button type="button" data-screen="screen-settings">设置</button>
+      <button type="button" data-screen="screen-public">公开叙事</button>
+      <button type="button" data-screen="screen-pitch">一页 pitch</button>
+      <button type="button" data-screen="screen-about">关于／边界</button>
+      <button type="button" data-screen="screen-decl">非生产声明</button>
+      <button type="button" id="btn-tour" class="tour-nav" title="演示导览（?）">导览</button>
+      <button type="button" id="btn-checklist" class="tour-nav" title="开场清单（c）">清单</button>
+      <button type="button" id="btn-dual" class="tour-nav" title="讲者双栏（Shift+D）" aria-pressed="false">双栏</button>
+    </nav>
+  </header>
+
+  <p id="boot-err" class="load-fail" hidden></p>
+  <p id="empty-hint" class="empty-state" hidden>暂无内容（演示空态）</p>
+
+  <aside id="presenter-bar" class="presenter-bar" hidden>
+    <button type="button" id="presenter-toggle" class="presenter-toggle" aria-expanded="false">讲者备注</button>
+    <div id="presenter-body" class="presenter-body" hidden>
+      <div class="presenter-tools" aria-label="讲者工具">
+        <div class="timer-box" id="presenter-timer-box">
+          <span class="timer-label">讲者计时</span>
+          <span id="timer-display" class="timer-display" aria-live="polite">00:00</span>
+          <span id="timer-target" class="timer-target muted"></span>
+          <button type="button" id="timer-start" class="ghost">开始</button>
+          <button type="button" id="timer-pause" class="ghost">暂停</button>
+          <button type="button" id="timer-reset" class="ghost">复位</button>
+        </div>
+        <button type="button" id="btn-talk-script" class="ghost">讲稿打印／假导出</button>
+        <button type="button" id="btn-scene-preview" class="ghost">下一屏预览</button>
+      </div>
+      <div id="presenter-note" class="presenter-note"></div>
+      <ol id="talk-track" class="talk-track" aria-label="口头轨"></ol>
+    </div>
+  </aside>
+
+  <main id="main-content" tabindex="-1">
+    <section id="screen-home" class="screen active" aria-label="入口">
+      <div class="hero">
+        <h1>Vaelin · UI 演示壳</h1>
+        <p class="lead">本地可截图的宣传壳（S9 本地再加深）。数据仅为假数据；不接生产 Hermes／vault／SEALED／plugins。</p>
+        <div class="chips">
+          <span class="chip ok">演示 ≠ 生产</span>
+          <span class="chip ok">纯假数据</span>
+          <span class="chip ok">零 Hermes</span>
+          <span class="chip">CEV＝旁路／沙箱实验</span>
+          <span class="chip">本 S9 不 push</span>
+        </div>
+        <div class="cta">
+          <button type="button" data-goto="screen-chat">打开会话占位</button>
+          <button type="button" class="ghost" data-goto="screen-pitch">一页讲完 pitch</button>
+          <button type="button" class="ghost" data-goto="screen-public">公开叙事索引</button>
+          <button type="button" class="ghost" id="cta-tour">开始导览</button>
+          <button type="button" class="ghost" data-goto="screen-settings">设置占位</button>
+          <button type="button" class="ghost" data-goto="screen-about">关于／边界</button>
+          <button type="button" class="ghost" data-goto="screen-status">查看状态栏</button>
+          <button type="button" class="ghost" data-goto="screen-decl">阅读非生产声明</button>
+        </div>
+        <div id="storyboard-home" class="storyboard" aria-label="录屏故事板"></div>
+        <div class="notice">
+          <strong>研究原型／非医疗。</strong>
+          本壳服务「边开发边等流量」的可视化；护栏细表、真实对话、API key、生产路径均不得出现在演示物料中。
+          三模式（氧气／凯撒／玥）仅作远景静态灰态占位，无后端接线。
+          公开叙事屏＝路径纯文本索引；不同批 push；禁 file:// vault。
+          深链／讲者／水印／toast／干净模式／本壳偏好／导览／假过滤／复制／假导出＝纯客户端；无遥测。
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-chat" class="screen" aria-label="会话占位">
+      <div class="chat-layout">
+        <aside id="sessions">
+          <h3>会话列表（假数据）</h3>
+          <div class="sess-filter" role="search" aria-label="会话假检索">
+            <label class="sr-only" for="sess-q">按标题／标签过滤</label>
+            <input type="search" id="sess-q" placeholder="假检索：标题／标签…" autocomplete="off" spellcheck="false">
+            <div id="sess-tags" class="sess-tags" aria-label="假标签"></div>
+          </div>
+          <div id="sesslist"></div>
+        </aside>
+        <div id="chat">
+          <div class="msg-filter" role="search" aria-label="消息流假过滤">
+            <label class="sr-only" for="msg-q">按关键词过滤消息</label>
+            <input type="search" id="msg-q" placeholder="消息假过滤：关键词…" autocomplete="off" spellcheck="false">
+            <div id="msg-roles" class="msg-roles" aria-label="角色 chips"></div>
+          </div>
+          <div id="flow"></div>
+          <div id="inputbar">
+            <textarea id="input" readonly placeholder="演示只读 · 不发送 · 未接模型／Hermes"></textarea>
+            <button type="button" disabled title="演示禁用">发送</button>
+          </div>
+        </div>
+        <aside id="modes-rail">
+          <h3>模式占位（静态）</h3>
+          <div id="modes-rail-body"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="screen-status" class="screen" aria-label="状态与模式占位">
+      <div class="status-grid">
+        <div class="stat"><div class="k">环境</div><div class="v" id="st-env">—</div></div>
+        <div class="stat"><div class="k">Hermes</div><div class="v" id="st-hermes">—</div></div>
+        <div class="stat"><div class="k">CEV</div><div class="v" id="st-cev">—</div></div>
+        <div class="stat"><div class="k">数据</div><div class="v" id="st-data">—</div></div>
+        <div class="stat"><div class="k">Push</div><div class="v" id="st-push">—</div></div>
+      </div>
+      <div class="modes-row" id="modes-status-row"></div>
+      <div id="compare-status" class="compare-card" aria-label="演示 vs 生产对照"></div>
+      <div class="panel-block">
+        <h2>硬闸（演示壳内可见）</h2>
+        <ul>
+          <li>不改／不启生产 Hermes、hooks、plugins、scheduler</li>
+          <li>不接 vault／真实会话／audit；不展 SEALED</li>
+          <li>不把 CEV 写成已上生产或公开可装；此处仅旁路／沙箱实验口径</li>
+          <li>氧气／凯撒／玥：静态灰态，无 live 调度／无感注入</li>
+          <li>深链／讲者／水印／toast／导览／检索／复制／假导出无后端、无遥测、无鉴权</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="screen-settings" class="screen" aria-label="设置占位">
+      <div class="settings-wrap">
+        <h1>设置（只读占位）</h1>
+        <p class="lead">以下均为演示假开关；无真持久化、无后端。连接类项已硬禁用。暗色／紧凑／高对比／水印／干净模式＝演示控件；偏好可本壳 localStorage 记忆（可关）。</p>
+        <div id="settings-list" class="settings-list"></div>
+        
+        <div class="demo-state-panel" id="s9-overlay-panel" aria-label="S9 讲者／录屏叠层">
+          <h2>讲者／录屏叠层（S9）</h2>
+          <p class="muted">双栏默认关；字幕／REC 仅视觉提示，不调用真录制 API。干净模式开时默认隐藏 REC。</p>
+          <div class="demo-state-row">
+            <button type="button" id="btn-dual-settings" class="demo-state-btn" aria-pressed="false">讲者双栏</button>
+            <button type="button" id="btn-caption-toggle" class="demo-state-btn" aria-pressed="false">字幕条</button>
+            <button type="button" id="btn-rec-toggle" class="demo-state-btn" aria-pressed="false">REC 角标</button>
+            <button type="button" id="btn-checklist-settings" class="demo-state-btn ghost">开场清单</button>
+          </div>
+        </div>
+
+        <div class="demo-state-panel" id="clean-mode-panel" aria-label="截图干净模式">
+          <h2>截图干净模式（S7＋）</h2>
+          <p class="muted">一键关水印＋开紧凑，便于对外截「干净 UI」；再点还原进入前状态。高对比默认不动。快捷键 <kbd>g</kbd>。</p>
+          <div class="demo-state-row">
+            <button type="button" id="btn-clean-mode" class="demo-state-btn clean-toggle" aria-pressed="false">开启干净模式</button>
+            <button type="button" id="btn-clear-prefs" class="demo-state-btn ghost">清除本壳偏好</button>
+          </div>
+        </div>
+
+        <div class="demo-state-panel" aria-label="空态失败态演示开关">
+          <h2>空态／失败态演示开关（当页内存）</h2>
+          <p class="muted">默认关。仅切换展示 empty／load-fail 样式供截图；不影响真实 fixture 加载路径。</p>
+          <div class="demo-state-row">
+            <button type="button" id="btn-demo-empty" class="demo-state-btn" aria-pressed="false">展示空态</button>
+            <button type="button" id="btn-demo-fail" class="demo-state-btn" aria-pressed="false">展示加载失败</button>
+            <button type="button" id="btn-demo-normal" class="demo-state-btn ghost">恢复正常</button>
+          </div>
+        </div>
+        <div class="notice">
+          <strong>硬闸提醒：</strong>「连接 Hermes」与「读取 vault」在本壳中永久禁用，标注不可改。
+          本屏仅供截图叙事，不是生产设置页。
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-public" class="screen" aria-label="公开叙事索引">
+      <div class="public-wrap">
+        <h1 id="public-title">已公开叙事／边界索引</h1>
+        <p class="lead" id="public-intro"></p>
+        <div id="public-groups" class="public-groups"></div>
+        <p class="muted" id="public-footer"></p>
+      </div>
+    </section>
+
+    <section id="screen-pitch" class="screen" aria-label="一页讲完 pitch">
+      <div class="pitch-wrap" id="pitch-body"></div>
+    </section>
+
+    <section id="screen-about" class="screen" aria-label="关于与边界">
+      <div class="about-wrap">
+        <h1 id="about-title">关于／边界</h1>
+        <p class="lead" id="about-summary"></p>
+        <div class="panel-block">
+          <h2>宣传边界摘要</h2>
+          <ul id="about-boundaries"></ul>
+        </div>
+        <div id="copy-lines-about" class="copy-lines" aria-label="可复制口径"></div>
+        <div id="changelog-about" class="changelog" aria-label="加深时间线"></div>
+        <div class="panel-block">
+          <h2>相关文档路径（纯文本）</h2>
+          <ul id="about-docs" class="path-list"></ul>
+          <p class="muted" id="about-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-decl" class="screen" aria-label="非生产声明">
+      <div class="decl">
+        <h1>本页为演示 · 非生产 · 无真实用户数据</h1>
+        <p>您正在查看 <strong>Vaelin UI 演示壳 S9</strong>（本地 staging · 本地再加深）。截图／录屏可用于宣传，但画面须能辨认「演示／非生产」。</p>
+        <p>本壳<strong>不是</strong>生产 Vaelin，也<strong>不是</strong>已接 Hermes 的安装态。无账号体系、无模型 API 真连、无公网默认监听。</p>
+        <div class="box">
+          <strong>禁用物料提醒：</strong>
+          真实用户对话、API key、本机生产路径、护栏词表／危机细则／破甲题面、
+          「已接 Hermes 生产」「CEV 已上生产」「强口径已验收」、SEALED／生产人设卡原文——均不得出现在本壳或对外物料。
+          公开叙事／pitch／对照／导出／changelog 不得写成「已同批上仓」；禁 file:// 打开 vault。
+          深链／讲者／水印／toast／干净模式／本壳偏好／导览＝客户端；无遥测、无上传。
+        </div>
+        <p class="rollback-hint">回滚：从 <code>.preUiDemoS9-20261019</code> 还原至 S8 态，或删除 <code>opencode/_ui_demo_stage/</code>；保留边界文档。本 S9 未改生产 Hermes；默不 push。</p>
+      </div>
+    </section>
+  </main>
+
+  <aside id="dual-rail" class="dual-rail" hidden aria-label="讲者双栏">
+    <div class="dual-head">讲者双栏 <span class="muted">Shift+D</span></div>
+    <div class="dual-timer"><span class="k">计时</span> <span id="dual-timer-display">00:00</span></div>
+    <div class="dual-note-wrap">
+      <div class="k">本屏备注</div>
+      <div id="dual-note" class="dual-note"></div>
+    </div>
+    <div class="dual-next-wrap">
+      <div class="k">下一屏</div>
+      <div id="dual-next" class="dual-next"></div>
+    </div>
+    <button type="button" id="dual-close" class="ghost">关闭双栏</button>
+  </aside>
+
+  <div id="filmstrip" class="filmstrip" role="navigation" aria-label="导览胶片条"></div>
+
+  <div id="tour-bar" class="tour-bar" hidden role="region" aria-label="演示导览">
+    <div class="tour-meta">
+      <span id="tour-step-label" class="tour-step-label">—</span>
+      <span id="tour-step-hint" class="tour-step-hint"></span>
+      <div id="tour-dots" class="tour-dots" aria-label="步骤进度点"></div>
+    </div>
+    <div class="tour-actions">
+      <button type="button" id="tour-prev" aria-label="上一步">← 上一步</button>
+      <button type="button" id="tour-preview" class="ghost" aria-label="预览下一步">预览</button>
+      <button type="button" id="tour-next" aria-label="下一步">下一步 →</button>
+      <button type="button" id="tour-help" class="ghost" aria-label="快捷键帮助" title="?">?</button>
+      <button type="button" id="tour-close" class="ghost" aria-label="关闭导览">关闭</button>
+    </div>
+  </div>
+
+  <div id="tour-help-panel" class="tour-help-panel" hidden role="dialog" aria-modal="true" aria-labelledby="tour-help-title">
+    <h2 id="tour-help-title">演示全键位／帮助（S9）</h2>
+    <p id="tour-help-body" class="help-lead"></p>
+    <ul id="tour-help-list" class="help-keymap" aria-label="键位表"></ul>
+    <p class="help-foot muted">深链示例：<code>#screen-pitch</code> · <code>#screen-decl</code> · 未知 hash 回首页。无遥测 · 127.0.0.1 only。</p>
+    <button type="button" id="tour-help-ok">知道了</button>
+  </div>
+
+    <div id="scene-preview" class="scene-preview" hidden role="status" aria-live="polite">
+    <div class="sp-kicker">下一屏预览</div>
+    <div id="scene-preview-title" class="sp-title"></div>
+    <div id="scene-preview-hint" class="sp-hint"></div>
+    <button type="button" id="scene-preview-go" class="ghost">前往该屏</button>
+    <button type="button" id="scene-preview-close" class="ghost">关闭</button>
+  </div>
+
+  <div id="talk-script-panel" class="talk-script-panel" hidden role="dialog" aria-modal="true" aria-labelledby="talk-script-title">
+    <h2 id="talk-script-title">演示讲稿</h2>
+    <p id="talk-script-sub" class="muted"></p>
+    <div id="talk-script-body" class="talk-script-body"></div>
+    <div class="talk-script-actions">
+      <button type="button" id="talk-script-print">打印／另存 PDF</button>
+      <button type="button" id="talk-script-download" class="ghost">下载讲稿 HTML</button>
+      <button type="button" id="talk-script-close" class="ghost">关闭</button>
+    </div>
+  </div>
+
+    <div id="checklist-panel" class="checklist-panel" hidden role="dialog" aria-modal="true" aria-labelledby="checklist-title">
+    <h2 id="checklist-title">当面开场清单</h2>
+    <p id="checklist-sub" class="muted"></p>
+    <ul id="checklist-list" class="checklist-list" aria-label="开场勾选"></ul>
+    <div class="checklist-actions">
+      <button type="button" id="checklist-reset" class="ghost">本场重置</button>
+      <button type="button" id="checklist-close">关闭</button>
+    </div>
+  </div>
+
+  <div id="rec-badge" class="rec-badge" hidden aria-hidden="true">REC · DEMO</div>
+  <div id="caption-bar" class="caption-bar" hidden role="status" aria-live="polite"></div>
+
+  <div id="demo-toast" class="demo-toast" role="status" aria-live="polite" hidden></div>
+
+  <footer class="app-foot">
+    staging · _ui_demo_stage · S9 本地再加深 2026-10-19 · 本地 Web · 零改 Hermes · 默不 push · 禁 CEV 迁生产
+  </footer>
+
+  <script src="js/demo.js"></script>
+</body>
+</html>

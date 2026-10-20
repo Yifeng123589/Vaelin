@@ -1,0 +1,4 @@
+node_modules/
+.electron-userdata/
+.desktop-s1-port
+*.log
