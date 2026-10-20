@@ -1,0 +1,14 @@
+{
+  "name": "vaelin-ui-desktop-demo",
+  "version": "0.0.0-demo",
+  "private": true,
+  "description": "Vaelin UI 演示壳 · Desktop · DEMO · 非生产 · 假数据 · 零 Hermes。demo ≠ production。不是生产安装包。",
+  "main": "main.js",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "44.9.0"
+  }
+}
