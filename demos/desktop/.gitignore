@@ -1,4 +1,9 @@
 node_modules/
 .electron-userdata/
 .desktop-s1-port
+.selftest-out.json
+selftest-out.json
+selftest-out*.json
 *.log
+*.preDesktopS2-20261021
+*.preUiDesktopS2Public-*

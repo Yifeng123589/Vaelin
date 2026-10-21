@@ -19,7 +19,7 @@ This tree does **not** ship companion production sessions, full eval corpora, se
 | Experiment summary | q10 report **conclusion＋preregistration abstract** only（see `docs/exp/q10_summary.md`） |
 | Meta | `LICENSE`（MIT）、`SECURITY.md`、this `PUBLIC.md` |
 | Root UX entry | Root `README.md` first-run path + `demos/ui/` local Web demo shell (fixture-only; **demo ≠ production**; non-production) |
-| Desktop demo shell | `demos/desktop/` thin Electron window over the same fixture UI (Windows `start_desktop.bat` / `npm start`; default port **8766**; **demo ≠ production**; no installer/Release by default) |
+| Desktop demo shell | `demos/desktop/` **Desktop-S2** thin Electron window over the same fixture UI (Windows `start_desktop.bat` / `npm start` / `run_selftest.bat`; optional tray off-by-default; default port **8766**; **demo ≠ production**; no installer/Release by default) |
 
 ## Not published（default）
 
