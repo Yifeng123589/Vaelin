@@ -304,8 +304,11 @@
   },
   "about": {
     "title": "关于／边界",
-    "summary": "Vaelin UI 演示壳 S9：在 S8 上本地再加深（讲者双栏、导览胶片条、当面开场清单、录屏字幕／REC 角标）。仍零接 Hermes；默不 push；三模式静态灰态。",
+    "summary": "Vaelin UI 演示壳 · Desktop-S3（Electron＠8766 · 基于 S9 拷贝／Desktop-S2 加深）：硬闸可见化、键位帮助、窗口几何本机记忆、selftest 加固。仍零接 Hermes；签 ≠ 启用；demo ≠ production · install ≠ enable · 8766 ≠ Hermes desktop；默不 push；三模式静态灰态。",
     "boundaries": [
+      "Desktop-S3：签 ≠ 启用 · demo ≠ production · install ≠ enable · 8766 ≠ Hermes desktop",
+      "Desktop-S3：Electron 演示窗＠127.0.0.1:8766＝stage only；不是生产 Hermes 桌面／%LocalAppData%\\hermes",
+      "Desktop-S3：窗口几何仅写入 staging .electron-userdata/；零 Hermes／vault／SEALED／config／tool_gate／deploy",
       "零接生产 Hermes／hooks／plugins／scheduler／Bot Chat",
       "不接 vault／真实对话／API key；不展 SEALED",
       "CEV＝旁路／沙箱实验口径；不得写成已上生产或强口径已验收",
@@ -319,6 +322,7 @@
       "S9：双栏／胶片／开场清单／字幕·REC＝演示专用；禁真录制／禁生产路径"
     ],
     "doc_paths": [
+      "docs/3_生产系统与观察/UI演示壳_Desktop_S3_待签_v0_20261022.md",
       "docs/3_生产系统与观察/UI演示壳_公开边界与S1_待签_v0_20261016.md",
       "docs/3_生产系统与观察/UI演示壳_S2_待签_v0_20261016.md",
       "docs/3_生产系统与观察/UI演示壳_S3_待签_v0_20261016.md",
@@ -327,7 +331,7 @@
       "docs/3_生产系统与观察/UI演示壳_S5_待签_v0_20261016.md",
       "docs/3_生产系统与观察/UI演示壳_S6_待签_v0_20261016.md"
     ],
-    "note": "上列为仓库内路径纯文本，供对照口径；本壳不自动打开生产目录，亦不提供 file:// 跳转。"
+    "note": "上列为仓库内路径纯文本，供对照口径；本壳不自动打开生产目录，亦不提供 file:// 跳转。Desktop-S3 ＝ stage 加深，≠ 启用／≠ 接 Hermes。"
   },
   "public_links": {
     "title": "已公开叙事／边界索引（只读）",

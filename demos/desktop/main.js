@@ -1,18 +1,20 @@
 "use strict";
 
 /**
- * Vaelin UI 演示壳 · Desktop-S2（基于 Desktop-S1 本地加深）
+ * Vaelin UI 演示壳 · Desktop-S3（基于 Desktop-S2 本地加深）
  * DEMO · 非生产 · 假数据 · 零 Hermes
- * demo ≠ production · install ≠ enable
+ * demo ≠ production · install ≠ enable · 签 ≠ 启用
+ * 8766 ≠ Hermes desktop
  *
  * 只提供本目录内拷贝的 S9 静态资源（index.html / css / js / data）。
  * 内嵌静态服只绑定 127.0.0.1。不调用 crashReporter、不装 autoUpdater、
  * 关闭 Chromium 后台联网／组件更新／指标上报。
  *
- * S2 加深：自测稳定性／可选轻量托盘／启动可读错误／DOM selftest 加固。
+ * S3 加深：基线回归／硬闸可见化／键位帮助／窗口几何本机记忆／selftest 加固／文档短注。
+ * userData 仅 staging .electron-userdata/；禁写 %LocalAppData%\hermes。
  */
 
-const { app, BrowserWindow, session, Tray, Menu, nativeImage } = require("electron");
+const { app, BrowserWindow, session, Tray, Menu, nativeImage, dialog } = require("electron");
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
@@ -20,20 +22,32 @@ const path = require("path");
 const HOST = "127.0.0.1";
 const PORT_START = 8766;
 const PORT_TRIES = 10;
-const WINDOW_TITLE = "Vaelin UI 演示壳 · Desktop-S2 · DEMO · 非生产";
+const WINDOW_TITLE = "Vaelin UI 演示壳 · Desktop-S3 · DEMO · 非生产";
 const ROOT = __dirname;
 const PORT_FILE = path.join(ROOT, ".desktop-s1-port");
 const SELFTEST =
+  process.env.DESKTOP_S3_SELFTEST === "1" ||
   process.env.DESKTOP_S2_SELFTEST === "1" ||
   process.env.DESKTOP_S1_SELFTEST === "1";
 const SELFTEST_OUT =
+  process.env.DESKTOP_S3_SELFTEST_OUT ||
   process.env.DESKTOP_S2_SELFTEST_OUT ||
   process.env.DESKTOP_S1_SELFTEST_OUT ||
   "";
 const SELFTEST_PNG =
+  process.env.DESKTOP_S3_SELFTEST_PNG ||
   process.env.DESKTOP_S2_SELFTEST_PNG ||
   process.env.DESKTOP_S1_SELFTEST_PNG ||
   "";
+const USER_DATA_DIR = path.join(ROOT, ".electron-userdata");
+const BOUNDS_FILE = path.join(USER_DATA_DIR, "window-bounds.json");
+const HARD_GATE_LINES = [
+  "签 ≠ 启用",
+  "demo ≠ production",
+  "install ≠ enable",
+  "8766 ≠ Hermes desktop",
+  "零 Hermes",
+];
 const TRAY_OPT_IN =
   process.env.DESKTOP_S2_TRAY === "1" ||
   process.argv.includes("--tray");
@@ -43,8 +57,8 @@ app.disableHardwareAcceleration();
 app.commandLine.appendSwitch("disable-gpu");
 app.commandLine.appendSwitch("disable-gpu-compositing");
 app.commandLine.appendSwitch("disable-software-rasterizer");
-app.setName("Vaelin UI Demo Desktop-S2");
-app.setPath("userData", path.join(ROOT, ".electron-userdata"));
+app.setName("Vaelin UI Demo Desktop-S3");
+app.setPath("userData", USER_DATA_DIR);
 
 app.commandLine.appendSwitch("disable-background-networking");
 app.commandLine.appendSwitch("disable-component-update");
@@ -92,11 +106,11 @@ const BLOCKED_TOP = new Set([
 ]);
 
 function logInfo(msg) {
-  process.stdout.write("[Desktop-S2] " + msg + "\n");
+  process.stdout.write("[Desktop-S3] " + msg + "\n");
 }
 
 function logErr(msg) {
-  process.stderr.write("[Desktop-S2][失败] " + msg + "\n");
+  process.stderr.write("[Desktop-S3][失败] " + msg + "\n");
 }
 
 function listen(server, port, left) {
@@ -175,7 +189,9 @@ function startServer() {
         top === "assets" ||
         relPosix.startsWith(".desktop-s1") ||
         relPosix.startsWith(".desktop-s2") ||
-        relPosix.endsWith(".preDesktopS2-20261021");
+        relPosix.endsWith(".preDesktopS2-20261021") ||
+        relPosix.includes(".preDesktopS3-20261022") ||
+        relPosix.startsWith(".desktop-s3");
       if (blocked) {
         res.writeHead(404);
         res.end("not found");
@@ -359,10 +375,76 @@ function setupTray(win) {
   }
 }
 
+
+function loadWindowBounds() {
+  try {
+    if (!fs.existsSync(BOUNDS_FILE)) return null;
+    const raw = JSON.parse(fs.readFileSync(BOUNDS_FILE, "utf8"));
+    if (!raw || typeof raw !== "object") return null;
+    const w = Number(raw.width);
+    const h = Number(raw.height);
+    const x = raw.x == null ? undefined : Number(raw.x);
+    const y = raw.y == null ? undefined : Number(raw.y);
+    if (!Number.isFinite(w) || !Number.isFinite(h) || w < 960 || h < 640) return null;
+    const out = { width: Math.round(w), height: Math.round(h) };
+    if (Number.isFinite(x) && Number.isFinite(y)) {
+      out.x = Math.round(x);
+      out.y = Math.round(y);
+    }
+    return out;
+  } catch (_e) {
+    return null;
+  }
+}
+
+function saveWindowBounds(win) {
+  try {
+    if (!win || win.isDestroyed()) return;
+    const b = win.getBounds();
+    if (!fs.existsSync(USER_DATA_DIR)) fs.mkdirSync(USER_DATA_DIR, { recursive: true });
+    fs.writeFileSync(
+      BOUNDS_FILE,
+      JSON.stringify(
+        {
+          width: b.width,
+          height: b.height,
+          x: b.x,
+          y: b.y,
+          note: "Desktop-S3 staging only · not %LocalAppData%\\hermes · demo ≠ production",
+        },
+        null,
+        2
+      ),
+      "utf8"
+    );
+  } catch (e) {
+    logErr("窗口几何保存失败（继续）: " + String(e));
+  }
+}
+
+function showHardGateAbout() {
+  const body =
+    "Vaelin UI 演示壳 · Desktop-S3 · DEMO · 非生产\\n\\n" +
+    HARD_GATE_LINES.join("\\n") +
+    "\\n\\n本窗＠127.0.0.1:8766＝演示 stage，不是生产 Hermes 桌面。\\n假数据 fixture · 零接线生产 · 签 ≠ 启用。";
+  dialog.showMessageBoxSync({
+    type: "info",
+    title: "Desktop-S3 硬闸／About（非生产）",
+    message: "签 ≠ 启用 · DEMO · 非生产",
+    detail: body,
+    buttons: ["知道了"],
+    noLink: true,
+  });
+}
+
 async function createWindow(port) {
+  const saved = loadWindowBounds();
   const win = new BrowserWindow({
-    width: 1280,
-    height: 840,
+    width: (saved && saved.width) || 1280,
+    height: (saved && saved.height) || 840,
+    ...(saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)
+      ? { x: saved.x, y: saved.y }
+      : {}),
     minWidth: 960,
     minHeight: 640,
     show: true,
@@ -410,6 +492,56 @@ async function createWindow(port) {
   await loadP;
   win.setTitle(WINDOW_TITLE);
   setupTray(win);
+  let saveTimer = null;
+  const scheduleSave = () => {
+    if (saveTimer) clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => saveWindowBounds(win), 400);
+  };
+  win.on("resize", scheduleSave);
+  win.on("move", scheduleSave);
+  win.on("close", () => saveWindowBounds(win));
+  try {
+    const menu = Menu.buildFromTemplate([
+      {
+        label: "演示",
+        submenu: [
+          {
+            label: "硬闸／About（签≠启用）",
+            accelerator: "CmdOrCtrl+Shift+A",
+            click: () => showHardGateAbout(),
+          },
+          {
+            label: "键位帮助（F1）",
+            accelerator: "F1",
+            click: () => {
+              if (win && !win.isDestroyed()) {
+                win.webContents.executeJavaScript(
+                  "window.__desktopS3ToggleHelp && window.__desktopS3ToggleHelp();",
+                  true
+                ).catch(() => {});
+              }
+            },
+          },
+          { type: "separator" },
+          {
+            label: "退出演示壳（关闭即停服）",
+            accelerator: "CmdOrCtrl+Q",
+            click: () => {
+              quitting = true;
+              if (win && !win.isDestroyed()) win.close();
+              else {
+                stopServerSync();
+                app.quit();
+              }
+            },
+          },
+        ],
+      },
+    ]);
+    Menu.setApplicationMenu(menu);
+  } catch (e) {
+    logErr("菜单初始化失败（继续）: " + String(e));
+  }
   return win;
 }
 
@@ -427,22 +559,31 @@ function installRequestGate() {
 }
 
 function evaluateDomSelftest(info, title, port, httpProbe) {
+  const userDataPath = app.getPath("userData");
   const checks = {
     titleHasDemo:
       title.indexOf("演示") >= 0 ||
       title.indexOf("DEMO") >= 0 ||
       title.toLowerCase().indexOf("demo") >= 0,
     titleHasNonProd: title.indexOf("非生产") >= 0,
+    titleHasDesktopS3: title.indexOf("Desktop-S3") >= 0,
     textHasNonProd: !!info.textHasNonProd,
     textHasDemo: !!info.textHasDemo,
     textHasZeroHermes: !!info.textHasZeroHermes,
+    textHasSignNotEnable: !!info.textHasSignNotEnable,
+    textHas8766NotHermes: !!info.textHas8766NotHermes,
     screensEnough: Array.isArray(info.screens) && info.screens.length >= MIN_SCREENS,
     portDefaultOrDoc: port >= PORT_START && port < PORT_START + PORT_TRIES,
     portNot8765Default: PORT_START === 8766,
     httpReachable: !!(httpProbe && httpProbe.ok),
+    userDataInStaging:
+      typeof userDataPath === "string" &&
+      userDataPath.indexOf(".electron-userdata") >= 0 &&
+      userDataPath.toLowerCase().indexOf("\\hermes") < 0 &&
+      userDataPath.toLowerCase().indexOf("/hermes") < 0,
   };
   const failed = Object.keys(checks).filter((k) => !checks[k]);
-  return { checks, failed, pass: failed.length === 0 };
+  return { checks, failed, pass: failed.length === 0, userDataPath };
 }
 
 app.whenReady().then(async () => {
@@ -496,6 +637,7 @@ app.whenReady().then(async () => {
   const win = await createWindow(started.port);
 
   if (SELFTEST) {
+    await new Promise((r) => setTimeout(r, 300));
     const info = await win.webContents.executeJavaScript(
       "(() => {" +
         "const text = document.body ? document.body.innerText : '';" +
@@ -507,6 +649,8 @@ app.whenReady().then(async () => {
         "textHasNonProd: text.indexOf('\u975e\u751f\u4ea7') >= 0," +
         "textHasDemo: text.indexOf('\u6f14\u793a') >= 0," +
         "textHasZeroHermes: text.indexOf('\u96f6 Hermes') >= 0 || text.indexOf('\u96f6\u63a5 Hermes') >= 0," +
+        "textHasSignNotEnable: text.indexOf('\u7b7e\u2260\u542f\u7528') >= 0 || text.indexOf('\u7b7e \u2260 \u542f\u7528') >= 0 || text.indexOf('\u7b7e\u4e0d\u7b49\u4e8e\u542f\u7528') >= 0," +
+        "textHas8766NotHermes: text.indexOf('8766') >= 0 && text.indexOf('Hermes') >= 0 && (text.indexOf('Hermes desktop') >= 0 || text.indexOf('\u2260') >= 0 || text.indexOf('≠') >= 0)," +
         "modes: ['\u6c27\u6c14','\u51ef\u6492','\u73a5'].filter(m => text.indexOf(m) >= 0)," +
         "gray: text.indexOf('\u7070\u6001') >= 0," +
         "screens: ids," +
@@ -522,7 +666,7 @@ app.whenReady().then(async () => {
     const evaled = evaluateDomSelftest(info, title, started.port, httpProbe);
     const out = {
       ok: evaled.pass,
-      stage: "Desktop-S2",
+      stage: "Desktop-S3",
       title: title,
       port: started.port,
       url: "http://" + HOST + ":" + started.port + "/",
@@ -534,6 +678,10 @@ app.whenReady().then(async () => {
       trayOptIn: TRAY_OPT_IN,
       demoNotProduction: true,
       installNotEnable: true,
+      signNotEnable: true,
+      portNotHermesDesktop: true,
+      userDataPath: evaled.userDataPath,
+      hardGateLines: HARD_GATE_LINES,
     };
     if (SELFTEST_OUT) {
       fs.writeFileSync(SELFTEST_OUT, JSON.stringify(out, null, 2), "utf8");
@@ -544,11 +692,11 @@ app.whenReady().then(async () => {
         fs.writeFileSync(SELFTEST_PNG, img.toPNG());
       } catch (capErr) {
         process.stderr.write(
-          "[Desktop-S2][selftest] capture skipped: " + String(capErr) + "\n"
+          "[Desktop-S3][selftest] capture skipped: " + String(capErr) + "\n"
         );
       }
     }
-    process.stdout.write("[Desktop-S2][selftest] " + JSON.stringify(out) + "\n");
+    process.stdout.write("[Desktop-S3][selftest] " + JSON.stringify(out) + "\n");
     quitting = true;
     setTimeout(() => {
       stopServerSync();

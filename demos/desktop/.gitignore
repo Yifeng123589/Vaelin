@@ -6,4 +6,7 @@ selftest-out.json
 selftest-out*.json
 *.log
 *.preDesktopS2-20261021
+*.preDesktopS3-20261022
 *.preUiDesktopS2Public-*
+*.preUiDesktopS3Public-*
+.desktop-s3-*
