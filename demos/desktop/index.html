@@ -3,15 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Vaelin · UI 演示壳（非生产）</title>
+<title>Vaelin · UI 演示壳 · Desktop-S3（非生产）</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="css/demo.css">
 </head>
 <body>
   <a id="skip-to-main" class="skip-link" href="#main-content">跳到主内容</a>
   <div id="np-banner" role="status" aria-live="polite">
-    <span class="np-text">本页为演示 · 非生产 · 无真实用户数据</span>
-    <span class="sub">零接 Hermes · 未迁 CEV 生产 · 假数据 fixture · S9</span>
+    <span class="np-text">本页为演示 · 非生产 · 无真实用户数据 · Desktop-S3</span>
+    <span class="sub">零接 Hermes · 签 ≠ 启用 · 8766 ≠ Hermes desktop · 假数据 fixture · S9→Desktop</span>
+  </div>
+  <div id="desktop-s3-gate" class="desktop-s3-gate" role="note" data-nonprod="1">
+    <span class="np-text">签 ≠ 启用 · demo ≠ production · install ≠ enable · 8766 ≠ Hermes desktop · 零 Hermes</span>
+    <span class="sub">本窗＝演示 stage＠127.0.0.1:8766 · 不是生产 Hermes 桌面 · F1 键位帮助</span>
   </div>
 
   <div id="demo-watermark" class="demo-watermark" aria-hidden="true" hidden></div>
@@ -218,8 +222,8 @@
     <section id="screen-decl" class="screen" aria-label="非生产声明">
       <div class="decl">
         <h1>本页为演示 · 非生产 · 无真实用户数据</h1>
-        <p>您正在查看 <strong>Vaelin UI 演示壳 S9</strong>（本地 staging · 本地再加深）。截图／录屏可用于宣传，但画面须能辨认「演示／非生产」。</p>
-        <p>本壳<strong>不是</strong>生产 Vaelin，也<strong>不是</strong>已接 Hermes 的安装态。无账号体系、无模型 API 真连、无公网默认监听。</p>
+        <p>您正在查看 <strong>Vaelin UI 演示壳 · Desktop-S3</strong>（本地 staging · Electron＠8766 · 基于 S9 拷贝）。截图／录屏可用于宣传，但画面须能辨认「演示／非生产」。</p>
+        <p>本壳<strong>不是</strong>生产 Vaelin，也<strong>不是</strong>已接 Hermes 的安装态。<strong>签 ≠ 启用</strong> · <strong>demo ≠ production</strong> · <strong>install ≠ enable</strong> · <strong>8766 ≠ Hermes desktop</strong>。无账号体系、无模型 API 真连、无公网默认监听。</p>
         <div class="box">
           <strong>禁用物料提醒：</strong>
           真实用户对话、API key、本机生产路径、护栏词表／危机细则／破甲题面、
@@ -305,10 +309,24 @@
 
   <div id="demo-toast" class="demo-toast" role="status" aria-live="polite" hidden></div>
 
+  <div id="desktop-s3-help" class="desktop-s3-help" hidden role="dialog" aria-modal="true" aria-labelledby="desktop-s3-help-title">
+    <h2 id="desktop-s3-help-title">Desktop-S3 键位／帮助（演示 · 非生产）</h2>
+    <p class="help-lead">仅 stage UX · 禁接生产命令／Hermes IPC · 签 ≠ 启用</p>
+    <ul class="help-keymap" aria-label="桌面键位">
+      <li><kbd>F1</kbd> 或 <kbd>?</kbd> — 打开／关闭本帮助</li>
+      <li><kbd>Ctrl+Shift+A</kbd> — 硬闸／About（签≠启用）</li>
+      <li><kbd>Ctrl+Q</kbd> — 退出演示壳（关闭即停服）</li>
+      <li>导览／清单／双栏等 S9 键位仍可用（见壳内导览 ?）</li>
+    </ul>
+    <p class="help-foot muted">端口默认 8766＠127.0.0.1 · 8766 ≠ Hermes desktop · 零 Hermes · 假数据 · 无公网隧道</p>
+    <button type="button" id="desktop-s3-help-ok">知道了</button>
+  </div>
+
   <footer class="app-foot">
-    staging · _ui_demo_stage · S9 本地再加深 2026-10-19 · 本地 Web · 零改 Hermes · 默不 push · 禁 CEV 迁生产
+    staging · _ui_desktop_stage · Desktop-S3 2026-10-22 · Electron＠8766 · 8766 ≠ Hermes desktop · 零接 Hermes · 签 ≠ 启用 · 默不 push
   </footer>
 
   <script src="js/demo.js"></script>
+  <script src="js/desktop_s3.js"></script>
 </body>
 </html>
