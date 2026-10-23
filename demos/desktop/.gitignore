@@ -3,10 +3,10 @@ node_modules/
 .desktop-s1-port
 .selftest-out.json
 selftest-out.json
-selftest-out*.json
 *.log
 *.preDesktopS2-20261021
+selftest-out*.json
 *.preDesktopS3-20261022
-*.preUiDesktopS2Public-*
-*.preUiDesktopS3Public-*
 .desktop-s3-*
+*.preDesktopHermesEnable-20261023
+_hermes_sandbox_stub/config.sandbox.yaml

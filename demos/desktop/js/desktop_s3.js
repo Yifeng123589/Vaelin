@@ -68,18 +68,18 @@
       var t = gate.querySelector(".np-text");
       if (t) {
         t.textContent =
-          "签 ≠ 启用 · demo ≠ production · install ≠ enable · 8766 ≠ Hermes desktop · 零 Hermes";
+          "签 ≠ 启用 · demo ≠ production · install ≠ enable · 8766 ≠ 生产 Hermes · 沙箱真启用 · ≠ 生产";
       }
     }
     var sub = document.querySelector("#np-banner .sub");
     if (sub && sub.textContent.indexOf("8766") < 0) {
       sub.textContent =
-        "零接 Hermes · 签 ≠ 启用 · 8766 ≠ Hermes desktop · 假数据 fixture · S9→Desktop";
+        "沙箱真启用 · ≠ 生产 Hermes · 签 ≠ 启用 · 8766 ≠ 生产 Hermes · fixture · H-SBX-A";
     }
     var foot = document.querySelector("footer.app-foot");
     if (foot && foot.textContent.indexOf("8766 ≠ Hermes") < 0) {
       foot.textContent =
-        "staging · _ui_desktop_stage · Desktop-S3 · Electron＠8766 · 8766 ≠ Hermes desktop · 零接 Hermes · 签 ≠ 启用 · 默不 push";
+        "demos/desktop · Desktop-S3 · 沙箱Hermes真启用 · Electron＠8766 · 8766 ≠ 生产 Hermes · ≠ LocalAppData\\hermes · 签 ≠ 启用 · PUB≠生产 enable · 未宣称生产启用";
     }
   }
 

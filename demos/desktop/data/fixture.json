@@ -111,11 +111,11 @@
       },
       {
         "role": "user",
-        "text": "第四点补「默不 push」。"
+        "text": "第四点补「PUB≠生产 enable · 未宣称生产启用」。"
       },
       {
         "role": "assistant",
-        "text": "· 本加深阶段默不 push 公开远程（演示假数据）"
+        "text": "· 本加深阶段PUB≠生产 enable · 未宣称生产启用 公开远程（演示假数据）"
       },
       {
         "role": "user",
@@ -131,7 +131,7 @@
       },
       {
         "role": "assistant",
-        "text": "演示摘要（假数据）：边界先于壳；假数据可截图；零接 Hermes；默不 push；公开叙事只读索引＝路径纯文本，不同批 push。"
+        "text": "演示摘要（假数据）：边界先于壳；假数据可截图；零接 Hermes；PUB≠生产 enable · 未宣称生产启用；公开叙事只读索引＝路径纯文本，不同批 push。"
       }
     ],
     "demo-s3": [
@@ -236,11 +236,11 @@
     }
   ],
   "status": {
-    "env": "demo-shell · S9",
-    "hermes": "未连接（硬闸 · 设置屏禁用）",
-    "cev": "旁路／沙箱实验（未上生产 · 非已验收）",
+    "env": "demo-shell · Desktop-S3 · H-SBX-A",
+    "hermes": "沙箱真启用（_hermes_sandbox_stub）· ≠ 生产 %LOCALAPPDATA%\\\\hermes · 零改生产 hooks/config/vault/SEALED",
+    "cev": "旁路／观察窗实况（未接入本壳 · 本拍勿改 tool_gate／CEV）",
     "data": "纯假数据 fixture（S9 双栏／胶片／清单／字幕·REC）",
-    "push": "本 S9 未 push"
+    "push": "本拍未 push · 公开 demos/desktop 须另拍"
   },
   "settings": {
     "theme": {
@@ -264,9 +264,9 @@
     },
     "hermes_connect": {
       "label": "连接 Hermes",
-      "value": "禁用",
+      "value": "沙箱（H-SBX-A）· ≠ 生产",
       "editable": false,
-      "gate": "硬闸：演示壳零接生产 Hermes／hooks／plugins／scheduler"
+      "gate": "沙箱 HERMES_HOME＝_hermes_sandbox_stub；禁止指向 %LOCALAPPDATA%\\\\hermes；不 deploy 生产；不改 tool_gate／CEV"
     },
     "vault_access": {
       "label": "读取 vault",
@@ -304,8 +304,11 @@
   },
   "about": {
     "title": "关于／边界",
-    "summary": "Vaelin UI 演示壳 · Desktop-S3（Electron＠8766 · 基于 S9 拷贝／Desktop-S2 加深）：硬闸可见化、键位帮助、窗口几何本机记忆、selftest 加固。仍零接 Hermes；签 ≠ 启用；demo ≠ production · install ≠ enable · 8766 ≠ Hermes desktop；默不 push；三模式静态灰态。",
+    "summary": "Vaelin UI 演示壳 · Desktop-S3（Electron＠8766 · 继承 S9 静态＋Desktop-S3 加深）· 沙箱Hermes真启用（H-SBX-A）· ≠ 生产 LocalAppData\\\\hermes · 签 ≠ 启用 · demo ≠ production · install ≠ enable · 8766 ≠ 生产 Hermes · PUB ≠ 生产 enable · PUB≠生产 enable · 未宣称生产启用 · 三模式灰态占位。",
     "boundaries": [
+      "8766＠127.0.0.1＝演示 stage ≠ 生产 Hermes · PUB ≠ 生产 enable · 本拍不 push／不刷树",
+      "零改 %LOCALAPPDATA%\\\\hermes hooks／config／vault／SEALED／scheduler · 不 deploy · 不碰 tool_gate／CEV",
+      "H-SBX-A：HERMES_HOME＝opencode\\\\_hermes_sandbox_stub · 沙箱真启用 · ≠ 生产",
       "Desktop-S3：签 ≠ 启用 · demo ≠ production · install ≠ enable · 8766 ≠ Hermes desktop",
       "Desktop-S3：Electron 演示窗＠127.0.0.1:8766＝stage only；不是生产 Hermes 桌面／%LocalAppData%\\hermes",
       "Desktop-S3：窗口几何仅写入 staging .electron-userdata/；零 Hermes／vault／SEALED／config／tool_gate／deploy",
@@ -313,7 +316,7 @@
       "不接 vault／真实对话／API key；不展 SEALED",
       "CEV＝旁路／沙箱实验口径；不得写成已上生产或强口径已验收",
       "氧气／凯撒／玥：静态灰态文案；无 live 接线",
-      "本 S6 默不 push；禁止公网隧道",
+      "本 S6 PUB≠生产 enable · 未宣称生产启用；禁止公网隧道",
       "公开叙事／pitch／对照／导出／changelog＝路径纯文本（及可选公开 https）；禁 file:// vault；不同批 push／未宣称已上生产",
       "深链／讲者／水印／密度／toast／导览／检索／复制／假导出＝纯客户端；无遥测、无鉴权、无后端、无上传",
       "护栏细表／危机细则／破甲题面／q10 replay／G2 全文：禁进壳",
@@ -530,9 +533,9 @@
       "不把 CEV 写成已上生产或公开可装；此处仅旁路／沙箱实验口径",
       "氧气／凯撒／玥：静态灰态，无 live 调度／无感注入",
       "深链／讲者／水印／密度／toast／导览／检索／复制／假导出无后端、无遥测、无鉴权、无上传",
-      "默不 push；禁止公网隧道；禁 file:// vault"
+      "PUB≠生产 enable · 未宣称生产启用；禁止公网隧道；禁 file:// vault"
     ],
-    "footer": "30～60 秒口头 pitch／打印手出 · S9 本地再加深 · 零 Hermes · 默不 push"
+    "footer": "30～60 秒口头 pitch／打印手出 · S9 本地再加深 · 零 Hermes · PUB≠生产 enable · 未宣称生产启用"
   },
   "filter_tags": [
     "全部",
@@ -573,12 +576,12 @@
     {
       "id": "one_liner",
       "label": "一句话介绍",
-      "text": "本地可截图的宣传演示壳：假数据、零接 Hermes、未迁 CEV 生产、本加深默不 push。"
+      "text": "本地可截图的宣传演示壳：假数据、零接 Hermes、未迁 CEV 生产、本加深PUB≠生产 enable · 未宣称生产启用。"
     },
     {
       "id": "gates",
       "label": "硬闸短句",
-      "text": "零 Hermes · 禁 vault · CEV＝旁路／沙箱 · 三模式仅灰态 · 默不 push · 禁 file:// vault"
+      "text": "零 Hermes · 禁 vault · CEV＝旁路／沙箱 · 三模式仅灰态 · PUB≠生产 enable · 未宣称生产启用 · 禁 file:// vault"
     },
     {
       "id": "s6",
@@ -671,7 +674,7 @@
         "points": [
           "画面须能辨认「演示／非生产」（黄条／水印／本页标题）",
           "回滚：从 .preUiDemoS7-* 还原 S6 态",
-          "本 S7 未改生产 Hermes；默不 push；禁公网隧道"
+          "本 S7 未改生产 Hermes；PUB≠生产 enable · 未宣称生产启用；禁公网隧道"
         ],
         "warn": "截图物料不得含真实对话、key、护栏细表、破甲题面。"
       }
@@ -801,7 +804,7 @@
   "talk_script": {
     "title": "演示讲稿（假导出／打印）",
     "subtitle": "由讲者备注＋口头轨＋pitch 口径拼装 · 本机打印另存 PDF · 无上传",
-    "footer": "Vaelin UI 演示壳 S9 · 非生产 · 零 Hermes · 默不 push"
+    "footer": "Vaelin UI 演示壳 S9 · 非生产 · 零 Hermes · PUB≠生产 enable · 未宣称生产启用"
   },
   "filmstrip": {
     "title": "导览胶片条",

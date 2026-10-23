@@ -29,7 +29,7 @@ Open **http://127.0.0.1:8765/** (HTTP, not `file://`). Details: [`demos/ui/READM
 
 ## 桌面窗怎么开（Windows）
 
-独立 Electron 桌面窗（**Desktop-S3**）加载同一套 fixture UI。**demo ≠ production** · **签 ≠ 启用** · **PUB ≠ Hermes**。零 Hermes、禁公网隧道、无 installer／商店／自动更新。硬闸可见；F1／? 帮助；可选托盘默关；自测见 `run_selftest.bat`。
+独立 Electron 桌面窗（**Desktop Hermes-sandbox demo** · 相对 Desktop-S3／PR#11）加载同一套 fixture UI。**demo ≠ production** · **签 ≠ 启用** · **PUB ≠ 生产 enable** · **8766 ≠ 生产 Hermes**。沙箱 stub ≠ 生产 Hermes；禁公网隧道；无 installer／商店／自动更新。硬闸可见；F1／? 帮助；可选托盘默关；自测见 `run_selftest.bat`。
 
 ```bat
 cd demos\desktop
@@ -39,7 +39,7 @@ start_desktop.bat
 或：`npm install --no-audit --no-fund --save-exact` → `npm start`（需本机 Node.js／npm）。
 
 - 默认端口 **8766**＠`127.0.0.1`（占用顺延；控制台打印实际端口）
-- 窗口标题含 **Desktop-S3 · DEMO · 非生产**
+- 窗口标题含 **Desktop-S3 · DEMO · 非生产**；硬闸含沙箱 ≠ 生产／PUB ≠ 生产 enable
 - 硬闸条含 **签 ≠ 启用**；帮助：F1／?
 - 可选托盘：`set DESKTOP_S2_TRAY=1` 或 `--tray`（默认关）
 - 自测：`cd demos\desktop` → `run_selftest.bat`
@@ -104,7 +104,7 @@ Full publish / exclusion boundary: [`PUBLIC.md`](PUBLIC.md). Security: [`SECURIT
 | Path | Role |
 |---|---|
 | `demos/ui/` | Local Web UI demo shell (fixture-only; **demo ≠ production**) |
-| `demos/desktop/` | Local **Electron desktop** demo shell (**Desktop-S3**; thin wrapper; fixture-only; **demo ≠ production**; **sign ≠ enable**; hard-gate + F1 help; default port 8766; optional tray off-by-default; `run_selftest.bat`) |
+| `demos/desktop/` | Local **Electron desktop** demo shell (**Desktop Hermes-sandbox demo** over Desktop-S3／PR#11; thin wrapper; fixture-only stub `_hermes_sandbox_stub/`; **demo ≠ production**; **sign ≠ enable**; **PUB ≠ prod enable**; hard-gate + F1 help; default port 8766; optional tray off-by-default; `run_selftest.bat`) |
 | `net/` | Core library (handoff / executor / workflow_log / lead* / vault I/O) |
 | `net/_test_*.py` | Unit tests (Path A) |
 | `scripts/bootstrap.py` | Path A one-shot layout check + unit tests |
@@ -127,7 +127,7 @@ Discussions are off. [Issue #1](https://github.com/Yifeng123589/Vaelin/issues/1)
 工作层关系网控制面：派工、落账、熔断、人审边界。
 
 - **先看演示**：`cd demos/ui` → `start_demo.bat`（或 `python -m http.server 8765 --bind 127.0.0.1`）→ 打开 http://127.0.0.1:8765/ · **demo ≠ production**
-- **桌面窗（Desktop-S3）**：`cd demos\desktop` → `start_desktop.bat`（或 `npm install`＋`npm start`）→ 独立 Electron 窗 · 端口 **8766** · 硬闸／F1 帮助 · 可选托盘默关 · `run_selftest.bat` · **demo ≠ production** · **签 ≠ 启用** · 零 Hermes
+- **桌面窗（Hermes-sandbox demo／S3 基）**：`cd demos\desktop` → `start_desktop.bat`（或 `npm install`＋`npm start`）→ 独立 Electron 窗 · 端口 **8766** · 硬闸／F1 帮助 · 沙箱 stub ≠ 生产 · 可选托盘默关 · `run_selftest.bat` · **demo ≠ production** · **签 ≠ 启用** · **PUB ≠ 生产 enable**
 - **安装**：`pip install -e .`（Python ≥3.10；零强制 API key；**install ≠ enable**）
 - **验证**：`vaelin-bootstrap` 或 `python scripts/bootstrap.py` → 期望 workflow_log **27**／handoff **15** pass
 
