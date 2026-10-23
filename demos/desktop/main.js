@@ -2,9 +2,9 @@
 
 /**
  * Vaelin UI 演示壳 · Desktop-S3（基于 Desktop-S2 本地加深）
- * DEMO · 非生产 · 假数据 · 零 Hermes
+ * DEMO · 非生产 · 假数据 · 沙箱Hermes真启用（H-SBX-A）· ≠ 生产
  * demo ≠ production · install ≠ enable · 签 ≠ 启用
- * 8766 ≠ Hermes desktop
+ * 8766 ≠ 生产 Hermes · PUB ≠ 生产 enable · 零改 %LocalAppData%\hermes
  *
  * 只提供本目录内拷贝的 S9 静态资源（index.html / css / js / data）。
  * 内嵌静态服只绑定 127.0.0.1。不调用 crashReporter、不装 autoUpdater、
@@ -22,7 +22,7 @@ const path = require("path");
 const HOST = "127.0.0.1";
 const PORT_START = 8766;
 const PORT_TRIES = 10;
-const WINDOW_TITLE = "Vaelin UI 演示壳 · Desktop-S3 · DEMO · 非生产";
+const WINDOW_TITLE = "Vaelin UI 演示壳 · Desktop-S3 · 沙箱Hermes真启用 · DEMO · 非生产 · ≠生产";
 const ROOT = __dirname;
 const PORT_FILE = path.join(ROOT, ".desktop-s1-port");
 const SELFTEST =
@@ -45,13 +45,56 @@ const HARD_GATE_LINES = [
   "签 ≠ 启用",
   "demo ≠ production",
   "install ≠ enable",
-  "8766 ≠ Hermes desktop",
-  "零 Hermes",
+  "8766 ≠ 生产 Hermes",
+  "PUB ≠ 生产 enable",
+  "沙箱真启用 · ≠ 生产",
+  "零改 LocalAppData\\hermes",
 ];
 const TRAY_OPT_IN =
   process.env.DESKTOP_S2_TRAY === "1" ||
   process.argv.includes("--tray");
 const MIN_SCREENS = 5;
+
+/** H-SBX-A：独立 sandbox HERMES_HOME；禁止指向生产 %LOCALAPPDATA%\\hermes */
+const DEFAULT_SANDBOX_HOME = path.resolve(ROOT, "_hermes_sandbox_stub");
+function resolveHermesSandboxHome() {
+  const raw = process.env.HERMES_HOME || DEFAULT_SANDBOX_HOME;
+  const resolved = path.resolve(raw);
+  const prod = path.resolve(
+    process.env.LOCALAPPDATA || "",
+    "hermes"
+  );
+  const prodNorm = prod.toLowerCase();
+  const resNorm = resolved.toLowerCase();
+  if (
+    resNorm === prodNorm ||
+    resNorm.startsWith(prodNorm + path.sep.toLowerCase()) ||
+    /[\\/]appdata[\\/]local[\\/]hermes([\\/]|$)/i.test(resolved)
+  ) {
+    throw new Error(
+      "REFUSE: HERMES_HOME 指向生产 %LOCALAPPDATA%\\hermes → " + resolved
+    );
+  }
+  const sbxNorm = DEFAULT_SANDBOX_HOME.toLowerCase();
+  if (resNorm !== sbxNorm && !resNorm.startsWith(sbxNorm + path.sep.toLowerCase())) {
+    // 允许显式指向本仓钉死的 sandbox；其它路径拒绝（防误指）
+    throw new Error(
+      "REFUSE: HERMES_HOME 必须为方案钉死的 sandbox → " +
+        DEFAULT_SANDBOX_HOME +
+        " ；got " +
+        resolved
+    );
+  }
+  return resolved;
+}
+let HERMES_SANDBOX_HOME;
+try {
+  HERMES_SANDBOX_HOME = resolveHermesSandboxHome();
+} catch (e) {
+  process.stderr.write("[Desktop-S3][失败] " + String(e && e.message ? e.message : e) + "\n");
+  process.exit(2);
+}
+process.env.HERMES_HOME = HERMES_SANDBOX_HOME;
 
 app.disableHardwareAcceleration();
 app.commandLine.appendSwitch("disable-gpu");
@@ -164,6 +207,50 @@ function startServer() {
         return;
       }
       const u = new URL(req.url || "/", "http://" + HOST);
+      // B3 探针面：沙箱状态（只读；永不读生产 hermes）
+      if (u.pathname === "/sandbox-hermes-status.json") {
+        try {
+          const stPath = path.join(HERMES_SANDBOX_HOME, "status.json");
+          const markerPath = path.join(HERMES_SANDBOX_HOME, "SANDBOX_MARKER.json");
+          const bodyObj = {
+            ok: true,
+            enabled: true,
+            mode: "sandbox",
+            scheme: "H-SBX-A",
+            hermesHome: HERMES_SANDBOX_HOME,
+            defaultSandboxHome: DEFAULT_SANDBOX_HOME,
+            productionTouched: false,
+            markerExists: fs.existsSync(markerPath),
+            statusFileExists: fs.existsSync(stPath),
+            message: "Desktop Hermes 沙箱真启用 · ≠ 生产 Hermes",
+            hardGateLines: HARD_GATE_LINES,
+            portNote: "8766@127.0.0.1 stage ≠ 生产 Hermes",
+          };
+          if (fs.existsSync(stPath)) {
+            try {
+              const raw = JSON.parse(fs.readFileSync(stPath, "utf8"));
+              bodyObj.sandboxStatus = raw;
+            } catch (_e) {}
+          }
+          const body = Buffer.from(JSON.stringify(bodyObj, null, 2), "utf8");
+          res.writeHead(200, {
+            "Content-Type": "application/json; charset=utf-8",
+            "Cache-Control": "no-store",
+            "X-Content-Type-Options": "nosniff",
+            "Content-Length": body.length,
+          });
+          if (req.method === "HEAD") {
+            res.end();
+            return;
+          }
+          res.end(body);
+          return;
+        } catch (e) {
+          res.writeHead(500, { "Content-Type": "application/json; charset=utf-8" });
+          res.end(JSON.stringify({ ok: false, error: String(e) }));
+          return;
+        }
+      }
       let rel = decodeURIComponent(u.pathname);
       if (rel.includes("\0")) {
         res.writeHead(400);
@@ -191,6 +278,7 @@ function startServer() {
         relPosix.startsWith(".desktop-s2") ||
         relPosix.endsWith(".preDesktopS2-20261021") ||
         relPosix.includes(".preDesktopS3-20261022") ||
+        relPosix.includes(".preDesktopHermesEnable-20261023") ||
         relPosix.startsWith(".desktop-s3");
       if (blocked) {
         res.writeHead(404);
@@ -426,10 +514,10 @@ function showHardGateAbout() {
   const body =
     "Vaelin UI 演示壳 · Desktop-S3 · DEMO · 非生产\\n\\n" +
     HARD_GATE_LINES.join("\\n") +
-    "\\n\\n本窗＠127.0.0.1:8766＝演示 stage，不是生产 Hermes 桌面。\\n假数据 fixture · 零接线生产 · 签 ≠ 启用。";
+    "\\n\\n本窗＠127.0.0.1:8766＝演示 stage · 沙箱 HERMES_HOME · ≠ 生产 Hermes。\\n假数据 fixture · 零接线生产 · 签 ≠ 启用。";
   dialog.showMessageBoxSync({
     type: "info",
-    title: "Desktop-S3 硬闸／About（非生产）",
+    title: "Desktop-S3 硬闸／About（沙箱Hermes · ≠生产）",
     message: "签 ≠ 启用 · DEMO · 非生产",
     detail: body,
     buttons: ["知道了"],
@@ -581,7 +669,19 @@ function evaluateDomSelftest(info, title, port, httpProbe) {
       userDataPath.indexOf(".electron-userdata") >= 0 &&
       userDataPath.toLowerCase().indexOf("\\hermes") < 0 &&
       userDataPath.toLowerCase().indexOf("/hermes") < 0,
+    hermesHomeIsSandbox:
+      typeof HERMES_SANDBOX_HOME === "string" &&
+      HERMES_SANDBOX_HOME.toLowerCase().indexOf("_hermes_sandbox_stub") >= 0,
+    hermesHomeNotProd:
+      typeof HERMES_SANDBOX_HOME === "string" &&
+      HERMES_SANDBOX_HOME.toLowerCase().indexOf("\\appdata\\local\\hermes") < 0 &&
+      HERMES_SANDBOX_HOME.toLowerCase().indexOf("/appdata/local/hermes") < 0,
+    sandboxMarkerPresent: fs.existsSync(
+      path.join(HERMES_SANDBOX_HOME, "SANDBOX_MARKER.json")
+    ),
+    textHasSandboxGate: HARD_GATE_LINES.some((l) => l.indexOf("沙箱") >= 0),
   };
+  delete checks.textHasZeroHermes;
   const failed = Object.keys(checks).filter((k) => !checks[k]);
   return { checks, failed, pass: failed.length === 0, userDataPath };
 }
@@ -619,12 +719,13 @@ app.whenReady().then(async () => {
   } catch (wErr) {
     logErr("写端口文件失败（继续）: " + String(wErr));
   }
+  logInfo("H-SBX-A HERMES_HOME=" + HERMES_SANDBOX_HOME + " · ≠ %LOCALAPPDATA%\\hermes");
   logInfo(
     "DEMO · 非生产 · http://" +
       HOST +
       ":" +
       started.port +
-      "/ · 零 Hermes · 无公网遥测 · 关闭窗口即停服"
+      "/ · 沙箱Hermes真启用 · ≠ 生产 · 无公网隧道 · 关闭窗口即停服"
   );
   if (started.port !== PORT_START) {
     logInfo(
@@ -682,6 +783,9 @@ app.whenReady().then(async () => {
       portNotHermesDesktop: true,
       userDataPath: evaled.userDataPath,
       hardGateLines: HARD_GATE_LINES,
+      hermesSandboxHome: HERMES_SANDBOX_HOME,
+      hermesScheme: "H-SBX-A",
+      productionHermesTouched: false,
     };
     if (SELFTEST_OUT) {
       fs.writeFileSync(SELFTEST_OUT, JSON.stringify(out, null, 2), "utf8");

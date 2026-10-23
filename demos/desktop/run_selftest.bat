@@ -2,19 +2,31 @@
 chcp 65001 >nul
 cd /d "%~dp0"
 echo.
-echo  Vaelin UI Demo Desktop-S3 DOM selftest - DEMO non-production
-echo  probes: Desktop-S3 title / sign!=enable / 8766 / zero Hermes / screens
+echo  Vaelin UI Demo Desktop DOM selftest - Hermes sandbox stub face
+echo  probes: Desktop-S3 title / sign!=enable / 8766 / sandbox stub / not prod hermes
 echo.
+set "HERMES_HOME=%~dp0_hermes_sandbox_stub"
+for %%I in ("%HERMES_HOME%") do set "HERMES_HOME=%%~fI"
+echo  [HERMES_HOME] %HERMES_HOME%
+echo %HERMES_HOME% | findstr /I /C:"\AppData\Local\hermes" >nul
+if not errorlevel 1 (
+  echo [FAIL] HERMES_HOME points at production. Refuse.
+  exit /b 2
+)
+if not exist "%HERMES_HOME%\SANDBOX_MARKER.json" (
+  echo [FAIL] sandbox stub marker missing.
+  exit /b 2
+)
 where node >nul 2>&1
 if errorlevel 1 (
-  echo [FAIL] node not found. Hermes untouched.
+  echo [FAIL] node not found. Production hermes untouched.
   exit /b 1
 )
 if not exist "node_modules\electron\cli.js" (
   echo electron missing, npm install...
   call npm install --no-audit --no-fund --save-exact
   if errorlevel 1 (
-    echo [FAIL] npm install failed. Hermes untouched.
+    echo [FAIL] npm install failed. Production hermes untouched.
     exit /b 1
   )
 )
@@ -45,5 +57,5 @@ if not "%EXITCODE%"=="0" (
   echo [FAIL] electron exit=%EXITCODE%
   exit /b %EXITCODE%
 )
-echo [PASS] Desktop-S3 DOM selftest
+echo [PASS] Desktop Hermes-sandbox demo selftest
 exit /b 0

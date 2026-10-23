@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "enabled": true,
+  "mode": "sandbox-stub",
+  "production": false,
+  "productionTouched": false,
+  "message": "fixture stub status \u2014 not production Hermes",
+  "port": 8766
+}

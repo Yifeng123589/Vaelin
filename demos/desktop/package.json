@@ -2,7 +2,7 @@
   "name": "vaelin-ui-desktop-s3-demo",
   "version": "0.0.0-demo",
   "private": true,
-  "description": "Vaelin UI 演示壳 · Desktop-S3 · DEMO · 非生产 · 假数据 · 零 Hermes。签 ≠ 启用 · demo ≠ production · install ≠ enable · 8766 ≠ Hermes desktop。不是生产安装包。",
+  "description": "Vaelin UI 演示壳 · Desktop-S3 · DEMO · 非生产 · 沙箱Hermes真启用(H-SBX-A) · ≠ 生产 LocalAppData\\\\hermes · 签 ≠ 启用 · demo ≠ production · install ≠ enable · 8766 ≠ 生产 Hermes · PUB ≠ 生产 enable · 非生产安装态",
   "main": "main.js",
   "license": "UNLICENSED",
   "scripts": {
