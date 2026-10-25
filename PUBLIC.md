@@ -19,7 +19,7 @@ This tree does **not** ship companion production sessions, full eval corpora, se
 | Experiment summary | q10 report **conclusion＋preregistration abstract** only（see `docs/exp/q10_summary.md`） |
 | Meta | `LICENSE`（MIT）、`SECURITY.md`、this `PUBLIC.md` |
 | Root UX entry | Root `README.md` first-run path + `demos/ui/` local Web demo shell (fixture-only; **demo ≠ production**; non-production) |
-| Desktop demo shell | `demos/desktop/` **Desktop Hermes-sandbox demo** (over Desktop-S3／PR#11) thin Electron window + `_hermes_sandbox_stub/` (Windows `start_desktop.bat` / `npm start` / `run_selftest.bat`; hard-gate + F1 help; optional tray off-by-default; default port **8766**; **demo ≠ production**; **sign ≠ enable**; **PUB ≠ prod enable**; no installer/Release by default; not production Hermes enable) |
+| Desktop demo shell | `demos/desktop/` **Desktop Hermes-sandbox + UI-only deepen** (over PR#12 Hermes-PUB) thin Electron window + `_hermes_sandbox_stub/` + nodegate viz fixture-only (`screen-nodegate`; Windows `start_desktop.bat` / `npm start` / `run_selftest.bat`; hard-gate + F1 help; optional tray off-by-default; default port **8766**; **demo ≠ production**; **sign ≠ enable**; **PUB ≠ prod enable**; **UI-only ≠ prod enable**; no installer/Release by default; not production Hermes enable) |
 
 ## Not published（default）
 

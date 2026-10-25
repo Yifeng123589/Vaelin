@@ -70,5 +70,14 @@ if (data.productionHermesTouched) {
   console.error("[selftest_check] FAIL: productionHermesTouched 必须为 false");
   process.exit(2);
 }
-console.log("[selftest_check] PASS Desktop-S3 + H-SBX-A sandbox");
+const deskRoot = require("path").dirname(require("path").resolve(path));
+const ngJs = require("path").join(deskRoot, "js", "desktop_nodegate_viz.js");
+const ngFx = require("path").join(deskRoot, "data", "nodegate_fixture.json");
+if (!fs.existsSync(ngJs) || !fs.existsSync(ngFx)) {
+  console.error("[selftest_check] FAIL: missing desktop_nodegate_viz.js or nodegate_fixture.json");
+  process.exit(2);
+}
+console.log("[selftest_check] nodegate assets: ok");
+console.log("[selftest_check] PASS Desktop-S3 + H-SBX-A sandbox + UI-only nodegate assets");
+
 process.exit(0);

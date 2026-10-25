@@ -6,6 +6,7 @@
     "screen-home",
     "screen-chat",
     "screen-status",
+    "screen-nodegate",
     "screen-settings",
     "screen-public",
     "screen-pitch",
@@ -403,9 +404,11 @@
     rail.innerHTML = "";
     DATA.modes.forEach((m) => {
       const d = document.createElement("div");
-      d.className = "mode-card";
+      d.className = "mode-card mode-card-gray";
+      d.dataset.mode = m.id || "";
+      d.setAttribute("aria-disabled", "true");
       d.innerHTML =
-        '<div class="name"></div><div class="st"></div><div class="note"></div>';
+        '<div class="mode-top"><span class="name"></span><span class="mode-pill">灰态</span></div><div class="st"></div><div class="note"></div>';
       d.querySelector(".name").textContent = m.label;
       d.querySelector(".st").textContent = m.state;
       d.querySelector(".note").textContent = m.note;
@@ -430,9 +433,11 @@
     row.innerHTML = "";
     DATA.modes.forEach((m) => {
       const d = document.createElement("div");
-      d.className = "mode-card";
+      d.className = "mode-card mode-card-gray";
+      d.dataset.mode = m.id || "";
+      d.setAttribute("aria-disabled", "true");
       d.innerHTML =
-        '<div class="name"></div><div class="st"></div><div class="note"></div>';
+        '<div class="mode-top"><span class="name"></span><span class="mode-pill">灰态</span></div><div class="st"></div><div class="note"></div>';
       d.querySelector(".name").textContent = m.label;
       d.querySelector(".st").textContent = m.state;
       d.querySelector(".note").textContent = m.note;
@@ -1272,6 +1277,7 @@
       "screen-home": "首页",
       "screen-chat": "会话占位",
       "screen-status": "状态／模式",
+      "screen-nodegate": "节点门",
       "screen-settings": "设置",
       "screen-public": "公开叙事",
       "screen-pitch": "一页 pitch",
