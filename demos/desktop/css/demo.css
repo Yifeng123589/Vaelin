@@ -688,3 +688,66 @@ body.tour-on .caption-bar, body:has(#tour-bar:not([hidden])) .caption-bar {
       "banner" "header" "main" "dual" "film" "tour" "foot";
   }
 }
+
+
+/* ===== Desktop 真使用 UI-only · 节点门旁路屏／三模式灰态打磨（2026-10-25） ===== */
+.mode-card-gray{
+  position:relative;
+  background:linear-gradient(180deg,var(--rail-bg),transparent);
+  border:1px dashed var(--line);
+  opacity:.92;
+}
+.mode-card-gray .mode-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mode-card-gray .mode-pill{
+  font-size:10px;padding:1px 7px;border-radius:999px;
+  background:#ece7df;color:#6a6358;border:1px solid #d4cdc0;letter-spacing:.02em
+}
+body.dark .mode-card-gray .mode-pill,
+html[data-theme="dark"] .mode-card-gray .mode-pill{
+  background:#2a2d33;color:#b8b3a8;border-color:#3a3f48
+}
+.ng-wrap{max-width:1100px;margin:0 auto;padding:18px 20px 40px}
+.ng-head h1{margin:0 0 6px;font-size:1.35rem}
+.ng-head .lead{margin:0 0 10px;color:var(--dim);line-height:1.55}
+.ng-banner{
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  padding:8px 12px;margin-bottom:14px;border-radius:8px;
+  background:#2a2418;border:1px solid #6b5a2a;color:#f0e6c8;font-size:.82rem
+}
+.ng-root{display:flex;flex-direction:column;gap:14px}
+.ng-top{display:flex;flex-wrap:wrap;gap:8px}
+.ng-badge{
+  display:inline-flex;gap:6px;align-items:center;
+  padding:4px 10px;border-radius:999px;border:1px solid var(--line);
+  background:var(--bg);font-size:12px
+}
+.ng-badge b{font-weight:600;opacity:.75}
+.ng-badge.ok{border-color:var(--chip-ok-line);color:var(--ok)}
+.ng-badge.bad{border-color:#c97a7a;color:#b33}
+.ng-summary{display:flex;flex-wrap:wrap;gap:10px}
+.ng-sum-item{
+  min-width:120px;padding:10px 12px;border:1px solid var(--line);
+  border-radius:8px;background:var(--rail-bg)
+}
+.ng-sum-item .k{display:block;font-size:11px;color:var(--dim)}
+.ng-sum-item .v{font-size:1.15rem;font-weight:600;margin-top:2px}
+.ng-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.ng-metric{
+  padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg)
+}
+.ng-metric .k{font-size:11px;color:var(--dim);word-break:break-all}
+.ng-metric .v{font-size:1.05rem;font-weight:600;margin-top:4px;font-variant-numeric:tabular-nums}
+.ng-block h3{margin:0 0 8px;font-size:13px}
+.ng-log{margin:0;padding-left:1.1rem;line-height:1.6;font-size:12.5px}
+.ng-table-wrap{overflow:auto;border:1px solid var(--line);border-radius:8px}
+.ng-table{width:100%;border-collapse:collapse;font-size:12px}
+.ng-table th,.ng-table td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.ng-table th{background:var(--rail-bg);position:sticky;top:0;font-weight:600}
+.ng-table tr.ok td:nth-child(4){color:var(--ok);font-weight:600}
+.ng-table tr.bad td:nth-child(4){color:#b33;font-weight:600}
+.ng-footnote{font-size:12px;color:var(--dim);margin:4px 0 0;line-height:1.5}
+.ng-hard{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.ng-chip{
+  font-size:11px;padding:3px 9px;border-radius:999px;
+  border:1px solid #6b5a2a;background:#2a2418;color:#f0e6c8
+}

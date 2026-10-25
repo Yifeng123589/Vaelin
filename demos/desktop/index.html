@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Vaelin · UI 演示壳 · Desktop-S3 · 沙箱Hermes真启用 · DEMO · 非生产 · ≠生产</title>
+<title>Vaelin · Desktop 真使用 UI-only · Desktop-S3 · DEMO · 非生产 · 零会话 · ≠生产</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="css/demo.css">
 </head>
 <body>
   <a id="skip-to-main" class="skip-link" href="#main-content">跳到主内容</a>
   <div id="np-banner" role="status" aria-live="polite">
-    <span class="np-text">本页为演示 · 非生产 · 无真实用户数据 · Desktop-S3</span>
-    <span class="sub">沙箱真启用 · ≠ 生产 Hermes · 签 ≠ 启用 · 8766 ≠ 生产 Hermes · fixture · H-SBX-A</span>
+    <span class="np-text">本页为演示 · 非生产 · 真使用 UI-only · 零会话 · Desktop-S3</span>
+    <span class="sub">沙箱真启用 · ≠ 生产 Hermes · 签 ≠ 启用 · 零碰 Hermes · 8766 ≠ 生产 Hermes · fixture · H-SBX-A · DEMO≠产</span>
   </div>
   <div id="desktop-s3-gate" class="desktop-s3-gate" role="note" data-nonprod="1">
-    <span class="np-text">签 ≠ 启用 · demo ≠ production · install ≠ enable · 8766 ≠ 生产 Hermes · 沙箱真启用 · ≠ 生产</span>
-    <span class="sub">沙箱 HERMES_HOME＝_hermes_sandbox_stub · 零改 LocalAppData\hermes · 8766＝stage ≠ 生产 Hermes · F1 键位帮助</span>
+    <span class="np-text">签 ≠ 启用 · demo ≠ production · install ≠ enable · 8766 ≠ 生产 Hermes · 沙箱真启用 · ≠ 生产 · 零会话</span>
+    <span class="sub">沙箱 HERMES_HOME＝_hermes_sandbox_stub · 零改 %LocalAppData%\hermes · 8766＝stage ≠ 生产 Hermes · 真使用 UI-only · F1 键位帮助</span>
   </div>
 
   <div id="demo-watermark" class="demo-watermark" aria-hidden="true" hidden></div>
@@ -27,6 +27,7 @@
       <button type="button" data-screen="screen-home" class="active">首页</button>
       <button type="button" data-screen="screen-chat">会话占位</button>
       <button type="button" data-screen="screen-status">状态／模式</button>
+      <button type="button" data-screen="screen-nodegate">节点门</button>
       <button type="button" data-screen="screen-settings">设置</button>
       <button type="button" data-screen="screen-public">公开叙事</button>
       <button type="button" data-screen="screen-pitch">一页 pitch</button>
@@ -81,13 +82,14 @@
           <button type="button" class="ghost" data-goto="screen-settings">设置占位</button>
           <button type="button" class="ghost" data-goto="screen-about">关于／边界</button>
           <button type="button" class="ghost" data-goto="screen-status">查看状态栏</button>
+          <button type="button" class="ghost" data-goto="screen-nodegate">节点门旁路屏</button>
           <button type="button" class="ghost" data-goto="screen-decl">阅读非生产声明</button>
         </div>
         <div id="storyboard-home" class="storyboard" aria-label="录屏故事板"></div>
         <div class="notice">
           <strong>研究原型／非医疗。</strong>
           本壳服务「边开发边等流量」的可视化；护栏细表、真实对话、API key、生产路径均不得出现在演示物料中。
-          三模式（氧气／凯撒／玥）仅作远景静态灰态占位，无后端接线。
+          三模式（氧气／凯撒／玥）灰态可扫读打磨 · 仍无后端会话；节点门屏＝旁路假数据可视化。
           公开叙事屏＝路径纯文本索引；不同批 push；禁 file:// vault。
           深链／讲者／水印／toast／干净模式／本壳偏好／导览／假过滤／复制／假导出＝纯客户端；无遥测。
         </div>
@@ -118,7 +120,7 @@
           </div>
         </div>
         <aside id="modes-rail">
-          <h3>模式占位（静态）</h3>
+          <h3>三模式（灰态 · 可扫读）</h3>
           <div id="modes-rail-body"></div>
         </aside>
       </div>
@@ -140,13 +142,27 @@
           <li>不改／不启生产 Hermes、hooks、plugins、scheduler</li>
           <li>不接 vault／真实会话／audit；不展 SEALED</li>
           <li>不把 CEV 写成已上生产或公开可装；此处仅旁路／沙箱实验口径</li>
-          <li>氧气／凯撒／玥：静态灰态，无 live 调度／无感注入</li>
+          <li>氧气／凯撒／玥：灰态轻打磨 · 可扫读 · 仍无 live 调度／无感注入／无后端会话</li>
           <li>深链／讲者／水印／toast／导览／检索／复制／假导出无后端、无遥测、无鉴权</li>
         </ul>
       </div>
     </section>
 
-    <section id="screen-settings" class="screen" aria-label="设置占位">
+    
+    <section id="screen-nodegate" class="screen" aria-label="节点门旁路可视化">
+      <div class="ng-wrap">
+        <header class="ng-head">
+          <h1>节点门 · 旁路可视化</h1>
+          <p class="lead">只读展示 <code>_nodegate_sandbox</code> out／fixtures <strong>假数据</strong>。非生产接线 · 零会话 · 零碰 Hermes · DEMO≠产 · 签≠启用。</p>
+          <div class="ng-banner" role="note">旁路假数据 · 非生产接线 · 零 Hermes · DEMO≠产 · 签≠启用 · 勿关 tool_gate／勿 melt</div>
+        </header>
+        <div id="nodegate-viz-root" class="ng-root" aria-live="polite">
+          <p class="muted">加载假数据…</p>
+        </div>
+      </div>
+    </section>
+
+<section id="screen-settings" class="screen" aria-label="设置占位">
       <div class="settings-wrap">
         <h1>设置（只读占位）</h1>
         <p class="lead">以下均为演示假开关；无真持久化、无后端。连接类项已硬禁用。暗色／紧凑／高对比／水印／干净模式＝演示控件；偏好可本壳 localStorage 记忆（可关）。</p>
@@ -231,7 +247,7 @@
           公开叙事／pitch／对照／导出／changelog 不得写成「已同批上仓」；禁 file:// 打开 vault。
           深链／讲者／水印／toast／干净模式／本壳偏好／导览＝客户端；无遥测、无上传。
         </div>
-        <p class="rollback-hint">回滚：从 <code>.preUiDemoS9-20261019</code> 还原至 S8 态，或删除 <code>opencode/_ui_demo_stage/</code>；保留边界文档。本 S9 未改生产 Hermes；PUB≠生产 enable · 未宣称生产启用。</p>
+        <p class="rollback-hint">回滚：从 <code>.preUiDemoS9-20261019</code> 还原至 S8 态，或删除 <code>opencode/_ui_demo_stage/</code>；保留边界文档。本 S9 未改生产 Hermes；默不 push。</p>
       </div>
     </section>
   </main>
@@ -322,12 +338,11 @@
     <button type="button" id="desktop-s3-help-ok">知道了</button>
   </div>
 
-  <footer class="app-foot">
-    demos/desktop · Desktop-S3 · 沙箱Hermes真启用 · Electron＠8766 · 8766 ≠ 生产 Hermes · ≠ LocalAppData\hermes · 签 ≠ 启用 · PUB≠生产 enable · 未宣称生产启用
-  </footer>
+  <footer class="app-foot">staging · _ui_desktop_stage · Desktop 真使用 UI-only · Desktop-S3 · 沙箱Hermes · Electron＠8766 · 8766 ≠ 生产 Hermes · 零会话 · 零碰 %LocalAppData%\hermes · 签 ≠ 启用 · DEMO≠产 · 默不 push</footer>
 
   <script src="js/demo.js"></script>
   <script src="js/desktop_s3.js"></script>
 <script src="js/desktop_hermes_sandbox.js"></script>
+<script src="js/desktop_nodegate_viz.js"></script>
 </body>
 </html>

@@ -1,0 +1,175 @@
+{
+  "schema": "desktop_nodegate_viz_fixture_v0",
+  "source": "nodegate_sandbox_out_fixtures_redacted",
+  "note": "旁路假数据 · 非生产接线 · 零 Hermes · DEMO≠产 · 签≠启用 · UI只读",
+  "ui_only": true,
+  "hermes_touch_display_must_be_false": true,
+  "generated_at": "2026-10-25T16:30:28+08:00",
+  "stage": 3,
+  "live_wire": true,
+  "hermes_touch": false,
+  "pass": true,
+  "ok": 8,
+  "total": 8,
+  "bounce_n": 2,
+  "metrics": {
+    "mixed_hunk_rate": 0.375,
+    "mixed_hunk_rate_ref_cap": 0.3,
+    "mainline_gate_red_rate": 0.3333,
+    "bounce_rounds_avg": 2.0,
+    "bounce_n_cap": 2
+  },
+  "matrix_log_count": 5,
+  "matrix_log_sample": [
+    {
+      "case": "NG2_out_declare_branch",
+      "line": "matrix:log_only_no_block"
+    },
+    {
+      "case": "NG6_branch_redline_block",
+      "line": "matrix:red:auth_bypass"
+    },
+    {
+      "case": "OBS7_out_matrix_log_only",
+      "line": "matrix:warn:scope_expand"
+    },
+    {
+      "case": "OBS7_out_matrix_log_only",
+      "line": "matrix:log_only_no_block"
+    },
+    {
+      "case": "OBS8_mixed_bounce_converge_out",
+      "line": "matrix:log_only_no_block"
+    }
+  ],
+  "results": [
+    {
+      "id": "NG1_in_declare_gate_green",
+      "route": "mainline_merge_ok",
+      "expected_route": "mainline_merge_ok",
+      "ok": true,
+      "bounce_rounds": 0,
+      "matrix_log": [],
+      "snapshot_gate": "green",
+      "notes": "主线快照门绿→可合并",
+      "metrics_partial": {
+        "bundle": "in"
+      }
+    },
+    {
+      "id": "NG2_out_declare_branch",
+      "route": "branch_human_review",
+      "expected_route": "branch_human_review",
+      "ok": true,
+      "bounce_rounds": 0,
+      "matrix_log": [
+        "matrix:log_only_no_block"
+      ],
+      "snapshot_gate": null,
+      "notes": "支线人审入场券（干净越界）",
+      "metrics_partial": {
+        "bundle": "out"
+      }
+    },
+    {
+      "id": "NG3_mixed_bounce_to_human",
+      "route": "human_after_n",
+      "expected_route": "human_after_n",
+      "ok": true,
+      "bounce_rounds": 2,
+      "matrix_log": [],
+      "snapshot_gate": null,
+      "notes": "bounce 达 N=2→人审",
+      "metrics_partial": {
+        "bundle": "mixed"
+      }
+    },
+    {
+      "id": "NG4_bounce_converge_in",
+      "route": "mainline_merge_ok",
+      "expected_route": "mainline_merge_ok",
+      "ok": true,
+      "bounce_rounds": 2,
+      "matrix_log": [],
+      "snapshot_gate": "green",
+      "notes": "bounce 收敛于 round 2",
+      "metrics_partial": {
+        "bundle": "in_after_bounce"
+      }
+    },
+    {
+      "id": "NG5_mainline_gate_red",
+      "route": "mainline_gate_red_bounce",
+      "expected_route": "mainline_gate_red_bounce",
+      "ok": true,
+      "bounce_rounds": 0,
+      "matrix_log": [],
+      "snapshot_gate": "red",
+      "notes": "主线快照门红→bounce，不扩权",
+      "metrics_partial": {
+        "bundle": "in"
+      }
+    },
+    {
+      "id": "NG6_branch_redline_block",
+      "route": "branch_blocked_redline",
+      "expected_route": "branch_blocked_redline",
+      "ok": true,
+      "bounce_rounds": 0,
+      "matrix_log": [
+        "matrix:red:auth_bypass"
+      ],
+      "snapshot_gate": null,
+      "notes": "支线红线阻断（矩阵）",
+      "metrics_partial": {
+        "bundle": "out"
+      }
+    },
+    {
+      "id": "OBS7_out_matrix_log_only",
+      "route": "branch_human_review",
+      "expected_route": "branch_human_review",
+      "ok": true,
+      "bounce_rounds": 0,
+      "matrix_log": [
+        "matrix:warn:scope_expand",
+        "matrix:log_only_no_block"
+      ],
+      "snapshot_gate": null,
+      "notes": "支线人审入场券（干净越界）",
+      "metrics_partial": {
+        "bundle": "out"
+      }
+    },
+    {
+      "id": "OBS8_mixed_bounce_converge_out",
+      "route": "branch_human_review",
+      "expected_route": "branch_human_review",
+      "ok": true,
+      "bounce_rounds": 2,
+      "matrix_log": [
+        "matrix:log_only_no_block"
+      ],
+      "snapshot_gate": null,
+      "notes": "bounce→支线 round 2",
+      "metrics_partial": {
+        "bundle": "out_after_bounce"
+      }
+    }
+  ],
+  "observe_window_footnote": {
+    "live_wire": false,
+    "hermes_touch": false,
+    "stage": 2,
+    "note": "②观察窗仍 false／false · UI≠接线"
+  },
+  "hard_gate_copy": [
+    "旁路假数据",
+    "非生产接线",
+    "零 Hermes",
+    "DEMO≠产",
+    "签≠启用",
+    "零会话",
+    "勿关 tool_gate／勿 melt"
+  ]
+}
